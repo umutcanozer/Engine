@@ -14,7 +14,9 @@ public:
 	System& operator=(const System&) = delete;
 	~System() = default;
 
-
+	HWND GetWindow() const { return m_window->GetHWnd(); }
+	int GetWindowWidth() const { return m_window->GetWidth(); }
+	int GetWindowHeight() const { return m_window->GetHeight(); }
 	void OnMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) override;
 	std::optional<int> ProcessMessages();
 

@@ -3,11 +3,13 @@
 #include <wrl.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
+#include <iostream>
+#include <sstream>
 
 class Graphics
 {
 public:
-	Graphics(HWND hwnd, int width, int height);
+	Graphics(HWND hWnd, int width, int height);
 	Graphics(const Graphics&) = delete; 
 	Graphics& operator=(const Graphics&) = delete;
 	~Graphics();

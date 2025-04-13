@@ -1,10 +1,19 @@
 #include "Engine.h"
+Engine::Engine()
+{
+	m_system = std::make_unique<System>();
+	m_graphics = std::make_unique<Graphics>(m_system->GetWindow(), m_system->GetWindowWidth(), m_system->GetWindowHeight());
+}
 
-Engine::Engine() : m_system(std::make_unique<System>()){}
+void Engine::Frame()
+{
+	m_graphics->BeginFrame(0.0f, 0.0f, 1.0f, 1.0f);
+	m_graphics->EndFrame();
+}
 
 int Engine::Run()
 {
-	while (true)
+    while (true)
 	{
 		if (const auto ecode = m_system->ProcessMessages())
 		{
@@ -16,5 +25,7 @@ int Engine::Run()
 			MessageBox(nullptr, "ESC is pressed.", "Info", MB_OK);
 			Sleep(300);
 		}
+
+		Frame();
 	}
 }
