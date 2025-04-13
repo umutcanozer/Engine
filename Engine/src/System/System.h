@@ -2,8 +2,8 @@
 #include <memory>
 #include <optional>
 #include "Window.h"
-#include "Keyboard.h"
-#include "Mouse.h"
+#include "Input/Keyboard.h"
+#include "Input/Mouse.h"
 #include "IMessageHandler.h"
 
 class System : public IMessageHandler
