@@ -14,6 +14,9 @@ public:
 	Graphics& operator=(const Graphics&) = delete;
 	~Graphics();
 
+	ID3D11Device* GetDevice() const { return m_pDevice.Get(); }
+	ID3D11DeviceContext* GetContext() const { return m_pDeviceContext.Get(); }
+
 	void BeginFrame(float red, float green, float blue, float alpha);
 	void EndFrame();
 

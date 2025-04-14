@@ -49,6 +49,12 @@
     <Filter Include="Source Files\Main">
       <UniqueIdentifier>{b2c3e895-6246-4209-81f3-98c661d35c0c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ECSystem">
+      <UniqueIdentifier>{b25ec3e6-31a8-4ec2-9389-fdd850bb7e29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ECSystem">
+      <UniqueIdentifier>{e4453691-81e0-47d6-b4db-8ba80e4c5fa7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Input\Keyboard.h">
@@ -83,6 +89,12 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Header Files\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECSystem\RenderSystem.h">
+      <Filter>Header Files\ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECSystem\CBufferSystem.h">
+      <Filter>Header Files\ECSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -123,5 +135,19 @@
     <ClCompile Include="src\Core\Graphics.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\ECSystem\RenderSystem.cpp">
+      <Filter>Source Files\ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECSystem\CBufferSystem.cpp">
+      <Filter>Source Files\ECSystem</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="src\Shader\PixelShader.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="src\Shader\VertexShader.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

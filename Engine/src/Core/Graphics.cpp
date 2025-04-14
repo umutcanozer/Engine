@@ -44,7 +44,8 @@ Graphics::Graphics(HWND hWnd, int width, int height)
 	dxgiAdapter->GetParent(__uuidof(IDXGIFactory1), reinterpret_cast<void**>(dxgiFactory.GetAddressOf()));
 
 	dxgiFactory->CreateSwapChain(m_pDevice.Get(), &scd, &m_pSwapChain);
-#pragma end region
+
+#pragma endregion
 
 #pragma region rendertarget/depthstencil
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> p_backBuffer;
@@ -104,9 +105,7 @@ Graphics::Graphics(HWND hWnd, int width, int height)
 	}
 
 	m_pDeviceContext->OMSetDepthStencilState(p_depthSState.Get(), 1u);
-
-	m_pDeviceContext->OMSetRenderTargets(1u, m_pRenderTargetView.GetAddressOf(), m_pDepthStencilView.Get());
-#pragma end region
+#pragma endregion
 	D3D11_VIEWPORT vp = {};
 	vp.Width = static_cast<float>(width);
 	vp.Height = static_cast<float>(height);
@@ -123,6 +122,8 @@ void Graphics::BeginFrame(float red, float green, float blue, float alpha = 1.0f
 	const float color[] = { red, green, blue, alpha };
 	m_pDeviceContext->ClearRenderTargetView(m_pRenderTargetView.Get(), color);
     m_pDeviceContext->ClearDepthStencilView(m_pDepthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
+
+	m_pDeviceContext->OMSetRenderTargets(1, m_pRenderTargetView.GetAddressOf(), m_pDepthStencilView.Get());
 }
 
 void Graphics::EndFrame()
