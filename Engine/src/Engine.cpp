@@ -5,57 +5,19 @@ Engine::Engine()
 {
 	m_system = std::make_unique<System>();
 	m_graphics = std::make_unique<Graphics>(m_system->GetWindow(), m_system->GetWindowWidth(), m_system->GetWindowHeight());
-	m_renderSystem = std::make_unique<RenderSystem>(*m_graphics, m_registry);
+
+	m_renderer = std::make_unique<Renderer>(*m_graphics, m_registry);
 	m_cbufferSystem = std::make_unique<CBufferSystem>(*m_graphics, m_registry);
+	m_meshSystem = std::make_unique<MeshSystem>(*m_graphics, m_registry);
 
-	cube = m_registry.create();
+	auto& meshManager = MeshManager::GetInstance();
+	auto cubeMesh = meshManager.LoadMesh("cube", *m_graphics);
 
-	const std::vector<Vertex> vertices =
-	{
-		// Front (Z+)
-		{ XMFLOAT3(-1.0f,  1.0f, -1.0f),  XMFLOAT4(1,0,0,1) },
-		{ XMFLOAT3(1.0f,  1.0f, -1.0f),  XMFLOAT4(0,1,0,1) },
-		{ XMFLOAT3(1.0f, -1.0f, -1.0f),  XMFLOAT4(0,0,1,1) },
-		{ XMFLOAT3(-1.0f, -1.0f, -1.0f),  XMFLOAT4(1,1,1,1) },
-		// Back (Z-)
-		{ XMFLOAT3(-1.0f,  1.0f, 1.0f),   XMFLOAT4(1,0,0,1) },
-		{ XMFLOAT3(1.0f,  1.0f, 1.0f),   XMFLOAT4(0,1,0,1) },
-		{ XMFLOAT3(1.0f, -1.0f, 1.0f),   XMFLOAT4(0,0,1,1) },
-		{ XMFLOAT3(-1.0f, -1.0f, 1.0f),   XMFLOAT4(1,1,1,1) },
-		// Left (X-)
-		{ XMFLOAT3(-1.0f,  1.0f,  1.0f),  XMFLOAT4(1,0,0,1) },
-		{ XMFLOAT3(-1.0f,  1.0f, -1.0f),  XMFLOAT4(0,1,0,1) },
-		{ XMFLOAT3(-1.0f, -1.0f, -1.0f),  XMFLOAT4(0,0,1,1) },
-		{ XMFLOAT3(-1.0f, -1.0f,  1.0f),  XMFLOAT4(1,1,1,1) },
-		// Right (X+)
-		{ XMFLOAT3(1.0f,  1.0f,  1.0f),  XMFLOAT4(1,0,0,1) },
-		{ XMFLOAT3(1.0f,  1.0f, -1.0f),  XMFLOAT4(0,1,0,1) },
-		{ XMFLOAT3(1.0f, -1.0f, -1.0f),  XMFLOAT4(0,0,1,1) },
-		{ XMFLOAT3(1.0f, -1.0f,  1.0f),  XMFLOAT4(1,1,1,1) },
-		// Top (Y+)
-		{ XMFLOAT3(-1.0f, 1.0f,  1.0f),   XMFLOAT4(1,0,0,1) },
-		{ XMFLOAT3(1.0f, 1.0f,  1.0f),   XMFLOAT4(0,1,0,1) },
-		{ XMFLOAT3(1.0f, 1.0f, -1.0f),   XMFLOAT4(0,0,1,1) },
-		{ XMFLOAT3(-1.0f, 1.0f, -1.0f),   XMFLOAT4(1,1,1,1) },
-		// Bottom (Y-)
-		{ XMFLOAT3(-1.0f, -1.0f,  1.0f),  XMFLOAT4(1,0,0,1) },
-		{ XMFLOAT3(1.0f, -1.0f,  1.0f),  XMFLOAT4(0,1,0,1) },
-		{ XMFLOAT3(1.0f, -1.0f, -1.0f),  XMFLOAT4(0,0,1,1) },
-		{ XMFLOAT3(-1.0f, -1.0f, -1.0f),  XMFLOAT4(1,1,1,1) }
-	};
+	entt::entity cube = m_registry.create();
+	entt::entity cube2 = m_registry.create();
 
-	const std::vector<unsigned short> indices =
-	{
-		0, 1, 2,  0, 2, 3,
-		4, 6, 5,  4, 7, 6,
-		8, 9, 10,  8, 10, 11,
-		12, 14, 13,  12, 15, 14,
-		16, 17, 18,  16, 18, 19,
-		20, 22, 21,  20, 23, 22
-	};
 	auto& mesh = m_registry.emplace<MeshComponent>(cube);
-	mesh.vertices = vertices;
-	mesh.indices = indices;
+	mesh.meshAsset = cubeMesh;
 	mesh.topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
 	auto& shader = m_registry.emplace<ShaderComponent>(cube);
@@ -67,8 +29,26 @@ Engine::Engine()
 	};
 
 	auto& constantBuffer = m_registry.emplace<ConstantBufferComponent>(cube);
+	constantBuffer.offsetZ = 5.0f;
+	constantBuffer.offsetX = -2.0f;
+	//cube2
+	auto& mesh2 = m_registry.emplace<MeshComponent>(cube2);
+	mesh2.meshAsset = cubeMesh;
+	mesh2.topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+
+	auto& shader2 = m_registry.emplace<ShaderComponent>(cube2);
+	shader2.vertexShaderPath = L"src/Shader/VertexShader.hlsl";
+	shader2.pixelShaderPath = L"src/Shader/PixelShader.hlsl";
+	shader2.layout = std::vector<D3D11_INPUT_ELEMENT_DESC>{
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+	};
+
+	auto& constantBuffer2 = m_registry.emplace<ConstantBufferComponent>(cube2);
+	constantBuffer2.offsetZ = 3.0f;
+	constantBuffer2.offsetX = -2.0f;
 	
-	m_renderSystem->Init();
+	m_meshSystem->Init();
 	m_cbufferSystem->Init();
 }
 
@@ -76,7 +56,7 @@ void Engine::Frame()
 {
 	m_graphics->BeginFrame(0.2f, 0.4f, 1.0f, 1.0f);
 	
-	m_renderSystem->Update();
+	m_renderer->Update();
 	m_cbufferSystem->Update();
 
 	m_graphics->EndFrame();

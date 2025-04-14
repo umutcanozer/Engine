@@ -90,10 +90,16 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files\Default</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECSystem\RenderSystem.h">
+    <ClInclude Include="src\ECSystem\Renderer.h">
       <Filter>Header Files\ECSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\ECSystem\CBufferSystem.h">
+      <Filter>Header Files\ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECSystem\MeshManager.h">
+      <Filter>Header Files\ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECSystem\MeshSystem.h">
       <Filter>Header Files\ECSystem</Filter>
     </ClInclude>
   </ItemGroup>
@@ -135,10 +141,16 @@
     <ClCompile Include="src\Core\Graphics.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\ECSystem\RenderSystem.cpp">
+    <ClCompile Include="src\ECSystem\Renderer.cpp">
       <Filter>Source Files\ECSystem</Filter>
     </ClCompile>
     <ClCompile Include="src\ECSystem\CBufferSystem.cpp">
+      <Filter>Source Files\ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECSystem\MeshManager.cpp">
+      <Filter>Source Files\ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECSystem\MeshSystem.cpp">
       <Filter>Source Files\ECSystem</Filter>
     </ClCompile>
   </ItemGroup>

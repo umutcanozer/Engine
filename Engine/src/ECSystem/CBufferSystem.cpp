@@ -23,12 +23,14 @@ void CBufferSystem::Update()
 		XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f)
 	);
 	XMMATRIX projMat = XMMatrixPerspectiveFovLH(XMConvertToRadians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-	XMMATRIX worldMat = XMMatrixRotationY(static_cast<float>(GetTickCount64()) / 1000.0f) *
-		XMMatrixRotationZ(static_cast<float>(GetTickCount64() / 1000.0f));
 
 	auto view = m_registry.view<ConstantBufferComponent>();
 	for (auto entity : view) {
 		auto& constantBuffer = view.get<ConstantBufferComponent>(entity);
+
+		XMMATRIX worldMat = XMMatrixRotationY(static_cast<float>(GetTickCount64()) / 1000.0f) *
+			XMMatrixRotationZ(static_cast<float>(GetTickCount64() / 1000.0f)) *
+			XMMatrixTranslation(constantBuffer.offsetX, 0.f, constantBuffer.offsetZ);
 
 		auto context = m_gfx.GetContext();
 		D3D11_MAPPED_SUBRESOURCE mapped;
@@ -44,10 +46,6 @@ void CBufferSystem::Update()
 		XMStoreFloat4x4(&cbDataPtr->view, XMMatrixTranspose(viewMat));
 		XMStoreFloat4x4(&cbDataPtr->proj, XMMatrixTranspose(projMat));
 		m_gfx.GetContext()->Unmap(constantBuffer.matrixBuffer.Get(), 0);
-
-
-		context->VSSetConstantBuffers(0, 1, constantBuffer.matrixBuffer.GetAddressOf());
-		context->PSSetConstantBuffers(0, 1, constantBuffer.matrixBuffer.GetAddressOf());
 	}
 }
 

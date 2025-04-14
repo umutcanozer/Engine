@@ -159,7 +159,9 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="src\Core\Graphics.h" />
     <ClInclude Include="src\ECSystem\CBufferSystem.h" />
-    <ClInclude Include="src\ECSystem\RenderSystem.h" />
+    <ClInclude Include="src\ECSystem\MeshManager.h" />
+    <ClInclude Include="src\ECSystem\MeshSystem.h" />
+    <ClInclude Include="src\ECSystem\Renderer.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Input\Keyboard.h" />
     <ClInclude Include="src\Input\Mouse.h" />
@@ -179,7 +181,9 @@
   <ItemGroup>
     <ClCompile Include="src\Core\Graphics.cpp" />
     <ClCompile Include="src\ECSystem\CBufferSystem.cpp" />
-    <ClCompile Include="src\ECSystem\RenderSystem.cpp" />
+    <ClCompile Include="src\ECSystem\MeshManager.cpp" />
+    <ClCompile Include="src\ECSystem\MeshSystem.cpp" />
+    <ClCompile Include="src\ECSystem\Renderer.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\Input\Keyboard.cpp" />
     <ClCompile Include="src\Input\Mouse.cpp" />

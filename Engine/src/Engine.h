@@ -1,8 +1,10 @@
 #pragma once
 #include "System/System.h"
 #include "Core/Graphics.h"
-#include "ECSystem/RenderSystem.h"
+#include "ECSystem/Renderer.h"
 #include "ECSystem/CBufferSystem.h"
+#include "ECSystem/MeshSystem.h"
+#include "ECSystem/MeshManager.h"
 #include "entt.hpp"
 
 class Engine
@@ -18,9 +20,9 @@ public:
 private:
 	std::unique_ptr<System> m_system;
 	std::unique_ptr<Graphics> m_graphics;
-	std::unique_ptr<RenderSystem> m_renderSystem;
+	std::unique_ptr<Renderer> m_renderer;
 	std::unique_ptr<CBufferSystem> m_cbufferSystem;
+	std::unique_ptr<MeshSystem> m_meshSystem;
 
 	entt::registry m_registry;
-	entt::entity cube;
 };

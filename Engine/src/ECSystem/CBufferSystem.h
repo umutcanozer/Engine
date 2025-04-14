@@ -13,6 +13,9 @@ struct ConstantBufferComponent {
 	Microsoft::WRL::ComPtr<ID3D11Buffer> matrixBuffer;
 	MatrixBuffer matrixData;
 
+	float offsetZ = 0.0f;
+	float offsetX = 0.0f;
+
 	ConstantBufferComponent() = default;
 	ConstantBufferComponent(const ConstantBufferComponent&) = default;
 };
