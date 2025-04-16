@@ -15,6 +15,7 @@ struct ConstantBufferComponent {
 
 	float offsetZ = 0.0f;
 	float offsetX = 0.0f;
+	float offsetY = 0.0f;
 
 	ConstantBufferComponent() = default;
 	ConstantBufferComponent(const ConstantBufferComponent&) = default;

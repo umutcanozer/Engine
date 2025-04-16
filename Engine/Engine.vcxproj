@@ -77,17 +77,21 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>E:\VSProjects\Engine\Engine\src;E:\VSProjects\Engine\Engine\vendor\imgui;E:\VSProjects\Engine\Engine\vendor\imgui\backends;E:\VSProjects\Engine\Engine\vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\VSProjects\Engine\Engine\src;E:\VSProjects\Engine\Engine\vendor\imgui;E:\VSProjects\Engine\Engine\vendor\imgui\backends;E:\VSProjects\Engine\Engine\vendor\entt\include;E:\VSProjects\Engine\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\VSProjects\Engine\vcpkg\installed\x64-windows\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
       <AdditionalIncludeDirectories>E:\VSProjects\Engine\Engine\src\Shader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </FxCompile>
+    <PostBuildEvent>
+      <Command>xcopy /Y /E /I "$(ProjectDir)assets" "$(OutDir)assets"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -98,19 +102,23 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>E:\VSProjects\Engine\Engine\src;E:\VSProjects\Engine\Engine\vendor\imgui;E:\VSProjects\Engine\Engine\vendor\imgui\backends;E:\VSProjects\Engine\Engine\vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\VSProjects\Engine\Engine\src;E:\VSProjects\Engine\Engine\vendor\imgui;E:\VSProjects\Engine\Engine\vendor\imgui\backends;E:\VSProjects\Engine\Engine\vendor\entt\include;E:\VSProjects\Engine\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\VSProjects\Engine\vcpkg\installed\x64-windows\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
       <AdditionalIncludeDirectories>E:\VSProjects\Engine\Engine\src\Shader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </FxCompile>
+    <PostBuildEvent>
+      <Command>xcopy /Y /E /I "$(ProjectDir)assets" "$(OutDir)assets"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -119,17 +127,21 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>E:\VSProjects\Engine\Engine\src;E:\VSProjects\Engine\Engine\vendor\imgui;E:\VSProjects\Engine\Engine\vendor\imgui\backends;E:\VSProjects\Engine\Engine\vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\VSProjects\Engine\Engine\src;E:\VSProjects\Engine\Engine\vendor\imgui;E:\VSProjects\Engine\Engine\vendor\imgui\backends;E:\VSProjects\Engine\Engine\vendor\entt\include;E:\VSProjects\Engine\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\VSProjects\Engine\vcpkg\installed\x64-windows\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
       <AdditionalIncludeDirectories>E:\VSProjects\Engine\Engine\src\Shader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </FxCompile>
+    <PostBuildEvent>
+      <Command>xcopy /Y /E /I "$(ProjectDir)assets" "$(OutDir)assets"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -140,19 +152,23 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>E:\VSProjects\Engine\Engine\src;E:\VSProjects\Engine\Engine\vendor\imgui;E:\VSProjects\Engine\Engine\vendor\imgui\backends;E:\VSProjects\Engine\Engine\vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\VSProjects\Engine\Engine\src;E:\VSProjects\Engine\Engine\vendor\imgui;E:\VSProjects\Engine\Engine\vendor\imgui\backends;E:\VSProjects\Engine\Engine\vendor\entt\include;E:\VSProjects\Engine\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\VSProjects\Engine\vcpkg\installed\x64-windows\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
       <AdditionalIncludeDirectories>E:\VSProjects\Engine\Engine\src\Shader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </FxCompile>
+    <PostBuildEvent>
+      <Command>xcopy /Y /E /I "$(ProjectDir)assets" "$(OutDir)assets"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />

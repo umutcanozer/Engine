@@ -1,4 +1,5 @@
 #include "Engine.h"	
+
 using namespace DirectX;
 
 Engine::Engine()
@@ -11,7 +12,7 @@ Engine::Engine()
 	m_meshSystem = std::make_unique<MeshSystem>(*m_graphics, m_registry);
 
 	auto& meshManager = MeshManager::GetInstance();
-	auto cubeMesh = meshManager.LoadMesh("cube", *m_graphics);
+	auto cubeMesh = meshManager.LoadModel("assets/rifle/rifle.obj", *m_graphics);
 
 	entt::entity cube = m_registry.create();
 	entt::entity cube2 = m_registry.create();
@@ -24,14 +25,15 @@ Engine::Engine()
 	shader.vertexShaderPath = L"src/Shader/VertexShader.hlsl";
 	shader.pixelShaderPath = L"src/Shader/PixelShader.hlsl";
 	shader.layout = std::vector<D3D11_INPUT_ELEMENT_DESC>{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
 	auto& constantBuffer = m_registry.emplace<ConstantBufferComponent>(cube);
-	constantBuffer.offsetZ = 5.0f;
-	constantBuffer.offsetX = -2.0f;
-	//cube2
+	constantBuffer.offsetZ = 10.0f;
+	constantBuffer.offsetX = -1.0f;
+	constantBuffer.offsetY = -3.0f;
+	
 	auto& mesh2 = m_registry.emplace<MeshComponent>(cube2);
 	mesh2.meshAsset = cubeMesh;
 	mesh2.topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
@@ -45,8 +47,9 @@ Engine::Engine()
 	};
 
 	auto& constantBuffer2 = m_registry.emplace<ConstantBufferComponent>(cube2);
-	constantBuffer2.offsetZ = 3.0f;
-	constantBuffer2.offsetX = -2.0f;
+	constantBuffer2.offsetZ = 10.0f;
+	constantBuffer2.offsetX = 1.0f;
+	constantBuffer2.offsetY = 3.0f;
 	
 	m_meshSystem->Init();
 	m_cbufferSystem->Init();

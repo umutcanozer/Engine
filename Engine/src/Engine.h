@@ -2,10 +2,6 @@
 #include "System/System.h"
 #include "Core/Graphics.h"
 #include "ECSystem/Renderer.h"
-#include "ECSystem/CBufferSystem.h"
-#include "ECSystem/MeshSystem.h"
-#include "ECSystem/MeshManager.h"
-#include "entt.hpp"
 
 class Engine
 {

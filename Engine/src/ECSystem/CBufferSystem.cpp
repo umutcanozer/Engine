@@ -28,9 +28,9 @@ void CBufferSystem::Update()
 	for (auto entity : view) {
 		auto& constantBuffer = view.get<ConstantBufferComponent>(entity);
 
-		XMMATRIX worldMat = XMMatrixRotationY(static_cast<float>(GetTickCount64()) / 1000.0f) *
-			XMMatrixRotationZ(static_cast<float>(GetTickCount64() / 1000.0f)) *
-			XMMatrixTranslation(constantBuffer.offsetX, 0.f, constantBuffer.offsetZ);
+		XMMATRIX worldMat = XMMatrixScaling(0.1f, 0.1f, 0.1f) *
+			XMMatrixRotationY(static_cast<float>(GetTickCount64() / 1000.0f)) *
+			XMMatrixTranslation(constantBuffer.offsetX, constantBuffer.offsetY, constantBuffer.offsetZ);
 
 		auto context = m_gfx.GetContext();
 		D3D11_MAPPED_SUBRESOURCE mapped;

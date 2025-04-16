@@ -3,7 +3,12 @@
 #include <unordered_map>
 #include <memory>
 #include <string>
+#include <fstream>
 #include "Core/Graphics.h"
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 
 struct Vertex {
@@ -30,7 +35,7 @@ public:
 		return instance;
 	}
 
-	std::shared_ptr<MeshAsset> LoadMesh(const std::string& path, Graphics& gfx);
+	std::shared_ptr<MeshAsset> LoadModel(const std::string& path, Graphics& gfx);
 
 private:
 	std::unordered_map<std::string, std::shared_ptr<MeshAsset>> m_loadedMeshes;
