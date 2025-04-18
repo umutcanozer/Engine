@@ -109,6 +109,7 @@ void Engine::UpdateImGui()
 {
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
+
 	ImGui::NewFrame();
 	ImGui::Begin("FPS");
 	ImGui::Text("FPS: %.1f", 1.f / ImGui::GetIO().DeltaTime);
