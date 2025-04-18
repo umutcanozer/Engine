@@ -16,6 +16,12 @@ struct Vertex {
 	DirectX::XMFLOAT4 color;
 };
 
+struct MeshHandle
+{
+	int id = -1;
+	bool IsValid() const { return id >= 0; }
+};
+
 struct MeshAsset
 {
 	std::vector<Vertex> vertices;
@@ -35,9 +41,11 @@ public:
 		return instance;
 	}
 
-	std::shared_ptr<MeshAsset> LoadModel(const std::string& path, Graphics& gfx);
+	MeshHandle LoadModel(const std::string& path, Graphics& gfx);
+	std::weak_ptr<MeshAsset> GetMesh(const MeshHandle& handle);
 
 private:
-	std::unordered_map<std::string, std::shared_ptr<MeshAsset>> m_loadedMeshes;
+	std::vector<std::shared_ptr<MeshAsset>> m_meshes;
+	std::unordered_map<std::string, int> m_pathToId;
 };
 

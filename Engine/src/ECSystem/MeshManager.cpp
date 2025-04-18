@@ -1,17 +1,17 @@
 #include "MeshManager.h"
 using namespace DirectX;
-std::shared_ptr<MeshAsset> MeshManager::LoadModel(const std::string& path, Graphics& gfx)
+MeshHandle MeshManager::LoadModel(const std::string& path, Graphics& gfx)
 {
 	std::ifstream test(path);
-	if (!test.is_open()) {
-		std::cerr << "C++ da okuyamýyor bu dosyayý: " << path << std::endl;
+	if (!test.is_open()) std::cerr << "C++ da okuyamýyor bu dosyayý: " << path << std::endl;
+	else std::cerr << "C++ dosyayý açabiliyor." << std::endl;
+
+
+	auto it = m_pathToId.find(path);
+	if (it != m_pathToId.end()) {
+		return MeshHandle{ it->second };
 	}
-	else {
-		std::cerr << "C++ dosyayý açabiliyor." << std::endl;
-	}
-    if (m_loadedMeshes.contains(path)) {
-        return m_loadedMeshes[path];
-    }
+
 
 	/*
 	* scene->mNumMeshes = number of meshes in the file
@@ -38,7 +38,7 @@ std::shared_ptr<MeshAsset> MeshManager::LoadModel(const std::string& path, Graph
 	meshAsset->vertices.reserve(mesh->mNumVertices);
 	meshAsset->indices.reserve(mesh->mNumFaces * 3);
 
-	for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
+	for (unsigned int i = 0; i < mesh->mNumVertices; ++i) {
 		Vertex vertex;
 		vertex.position.x = mesh->mVertices[i].x;
 		vertex.position.y = mesh->mVertices[i].y;
@@ -57,7 +57,7 @@ std::shared_ptr<MeshAsset> MeshManager::LoadModel(const std::string& path, Graph
 	}
 
 
-	for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
+	for (unsigned int i = 0; i < mesh->mNumFaces; ++i) {
 		const aiFace& face = mesh->mFaces[i];
 		for (unsigned int j = 0; j < face.mNumIndices; j++) {
 			meshAsset->indices.push_back(face.mIndices[j]);
@@ -92,6 +92,17 @@ std::shared_ptr<MeshAsset> MeshManager::LoadModel(const std::string& path, Graph
 
 	gfx.GetDevice()->CreateBuffer(&ibDesc, &ibData, &meshAsset->indexBuffer);
 
-	m_loadedMeshes[path] = meshAsset;
-    return meshAsset;
+	int newID = static_cast<int>(m_meshes.size());
+	m_meshes.push_back(meshAsset);
+	m_pathToId[path] = newID;
+
+	return MeshHandle{ newID };
+}
+
+std::weak_ptr<MeshAsset> MeshManager::GetMesh(const MeshHandle& handle)
+{
+	if (!handle.IsValid() || handle.id >= m_meshes.size()) {
+		return std::weak_ptr<MeshAsset>{};
+	}
+	return m_meshes[handle.id];
 }

@@ -4,7 +4,7 @@
 #include "MeshManager.h"
 
 struct MeshComponent {
-	std::shared_ptr<MeshAsset> meshAsset;
+	std::weak_ptr<MeshAsset> meshAsset;
 	D3D11_PRIMITIVE_TOPOLOGY topology;
 };
 

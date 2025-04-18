@@ -12,13 +12,14 @@ Engine::Engine()
 	m_meshSystem = std::make_unique<MeshSystem>(*m_graphics, m_registry);
 
 	auto& meshManager = MeshManager::GetInstance();
-	auto cubeMesh = meshManager.LoadModel("assets/rifle/rifle.obj", *m_graphics);
+	auto rifleMesh = meshManager.LoadModel("assets/rifle/rifle.obj", *m_graphics);
+	auto rabbitMesh = meshManager.LoadModel("assets/wally/wally_uv.obj", *m_graphics);
 
 	entt::entity cube = m_registry.create();
 	entt::entity cube2 = m_registry.create();
 
 	auto& mesh = m_registry.emplace<MeshComponent>(cube);
-	mesh.meshAsset = cubeMesh;
+	mesh.meshAsset = meshManager.GetMesh(rifleMesh);
 	mesh.topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
 	auto& shader = m_registry.emplace<ShaderComponent>(cube);
@@ -35,7 +36,7 @@ Engine::Engine()
 	constantBuffer.offsetY = -3.0f;
 	
 	auto& mesh2 = m_registry.emplace<MeshComponent>(cube2);
-	mesh2.meshAsset = cubeMesh;
+	mesh2.meshAsset = meshManager.GetMesh(rifleMesh);
 	mesh2.topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
 	auto& shader2 = m_registry.emplace<ShaderComponent>(cube2);
@@ -47,7 +48,7 @@ Engine::Engine()
 	};
 
 	auto& constantBuffer2 = m_registry.emplace<ConstantBufferComponent>(cube2);
-	constantBuffer2.offsetZ = 10.0f;
+	constantBuffer2.offsetZ = 5.0f;
 	constantBuffer2.offsetX = 1.0f;
 	constantBuffer2.offsetY = 3.0f;
 	
