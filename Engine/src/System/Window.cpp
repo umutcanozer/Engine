@@ -1,4 +1,6 @@
 #include "Window.h"
+#include <imgui_impl_win32.h>
+
 
 Window::Window(int width, int height, const std::string& title)
 	: m_width(width), m_height(height)
@@ -16,8 +18,11 @@ Window::Window(int width, int height, const std::string& title)
 HWND Window::GetHWnd() const {
     return m_hWnd;
 }
-
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK Window::WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+        return true;
+
     if (msg == WM_NCCREATE)
     {
         CREATESTRUCT* pCreate = reinterpret_cast<CREATESTRUCT*>(lParam);

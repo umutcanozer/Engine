@@ -128,7 +128,7 @@ void Graphics::BeginFrame(float red, float green, float blue, float alpha = 1.0f
 
 void Graphics::EndFrame()
 {
-	HRESULT hr = m_pSwapChain->Present(1u, 0u);
+	HRESULT hr = m_pSwapChain->Present(0u, 0u);
 	if (FAILED(hr))
 	{
 		if (hr == DXGI_ERROR_DEVICE_REMOVED || hr == DXGI_ERROR_DEVICE_RESET)
