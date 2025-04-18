@@ -43,6 +43,15 @@ MeshHandle MeshManager::LoadModel(const std::string& path, Graphics& gfx)
 		vertex.position.x = mesh->mVertices[i].x;
 		vertex.position.y = mesh->mVertices[i].y;
 		vertex.position.z = mesh->mVertices[i].z;
+		// UV 
+		if (mesh->HasTextureCoords(0)) {
+			vertex.texcoord.x = mesh->mTextureCoords[0][i].x;
+			vertex.texcoord.y = mesh->mTextureCoords[0][i].y;
+		}
+		else {
+			vertex.texcoord = { 0.0f, 0.0f };
+		}
+
 		if (mesh->HasVertexColors(0)) {
 			vertex.color.x = mesh->mColors[0][i].r;
 			vertex.color.y = mesh->mColors[0][i].g;

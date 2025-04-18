@@ -102,6 +102,9 @@
     <ClInclude Include="src\ECSystem\MeshSystem.h">
       <Filter>Header Files\ECSystem</Filter>
     </ClInclude>
+    <ClInclude Include="src\ECSystem\TextureManager.h">
+      <Filter>Header Files\ECSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Engine.rc">
@@ -151,6 +154,9 @@
       <Filter>Source Files\ECSystem</Filter>
     </ClCompile>
     <ClCompile Include="src\ECSystem\MeshSystem.cpp">
+      <Filter>Source Files\ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECSystem\TextureManager.cpp">
       <Filter>Source Files\ECSystem</Filter>
     </ClCompile>
   </ItemGroup>

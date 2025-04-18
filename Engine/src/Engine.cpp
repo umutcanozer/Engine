@@ -12,8 +12,10 @@ Engine::Engine()
 	m_meshSystem = std::make_unique<MeshSystem>(*m_graphics, m_registry);
 
 	auto& meshManager = MeshManager::GetInstance();
+	auto& textureManager = TextureManager::GetInstance();
+
 	auto rifleMesh = meshManager.LoadModel("assets/rifle/rifle.obj", *m_graphics);
-	auto rabbitMesh = meshManager.LoadModel("assets/wally/wally_uv.obj", *m_graphics);
+	auto rifleTexture = textureManager.LoadTexture("assets/rifle/m_rifl.bmp", *m_graphics);
 
 	entt::entity cube = m_registry.create();
 	entt::entity cube2 = m_registry.create();
@@ -26,9 +28,13 @@ Engine::Engine()
 	shader.vertexShaderPath = L"src/Shader/VertexShader.hlsl";
 	shader.pixelShaderPath = L"src/Shader/PixelShader.hlsl";
 	shader.layout = std::vector<D3D11_INPUT_ELEMENT_DESC>{
-		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, offsetof(Vertex, position), D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, offsetof(Vertex, texcoord), D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, offsetof(Vertex, color), D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
+
+	auto& texture = m_registry.emplace<TextureComponent>(cube);
+	texture.textureAsset = textureManager.GetTexture(rifleTexture);
 
 	auto& constantBuffer = m_registry.emplace<ConstantBufferComponent>(cube);
 	constantBuffer.offsetZ = 10.0f;
@@ -43,9 +49,13 @@ Engine::Engine()
 	shader2.vertexShaderPath = L"src/Shader/VertexShader.hlsl";
 	shader2.pixelShaderPath = L"src/Shader/PixelShader.hlsl";
 	shader2.layout = std::vector<D3D11_INPUT_ELEMENT_DESC>{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, offsetof(Vertex, position), D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, offsetof(Vertex, texcoord), D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, offsetof(Vertex, color), D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
+
+	auto& texture2 = m_registry.emplace<TextureComponent>(cube2);
+	texture2.textureAsset = textureManager.GetTexture(rifleTexture);
 
 	auto& constantBuffer2 = m_registry.emplace<ConstantBufferComponent>(cube2);
 	constantBuffer2.offsetZ = 5.0f;

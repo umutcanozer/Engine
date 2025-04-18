@@ -2,6 +2,7 @@
 #include "Core/Graphics.h"
 #include "entt.hpp"
 #include "MeshManager.h"
+#include "TextureManager.h"
 
 struct MeshComponent {
 	std::weak_ptr<MeshAsset> meshAsset;
@@ -20,6 +21,10 @@ struct ShaderComponent {
 
 	ShaderComponent() = default;
 	ShaderComponent(const ShaderComponent&) = default;
+};
+
+struct TextureComponent {
+	std::weak_ptr<TextureAsset> textureAsset;
 };
 
 

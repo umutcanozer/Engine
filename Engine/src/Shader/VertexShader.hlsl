@@ -7,12 +7,14 @@ cbuffer MatrixBuffer : register(b0)
 
 struct VSInput {
 	float3 position : POSITION;
-	float4 color : COLOR;
+	float2 texcoord : TEXCOORD;
+	float4 color	: COLOR;
 };
 
 struct PSInput {
 	float4 position : SV_POSITION;
-	float4 color : COLOR;
+	float2 texcoord : TEXCOORD;
+	float4 color	: COLOR;
 };
 
 PSInput main(VSInput input) {
@@ -23,6 +25,7 @@ PSInput main(VSInput input) {
 	float4 viewPos = mul(worldPos, viewMatrix);
 	float4 projPos = mul(viewPos, projMatrix);
 	output.position = projPos;
+	output.texcoord = input.texcoord;
 	output.color = input.color;
 	return output;
 }
