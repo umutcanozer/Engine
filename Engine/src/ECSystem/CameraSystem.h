@@ -18,6 +18,7 @@ struct CameraComponent {
 	float aspectRatio;
 
 	CameraComponent() = default;
+	CameraComponent(const CameraComponent&) = default;
 };
 
 struct CamBuffer {

@@ -12,6 +12,7 @@ Engine::Engine()
 	m_cbufferSystem = std::make_unique<CBufferSystem>(*m_graphics, m_registry);
 	m_meshSystem = std::make_unique<MeshSystem>(*m_graphics, m_registry);
 	m_cameraSystem = std::make_unique<CameraSystem>(*m_graphics, m_registry);
+	m_transformSystem = std::make_unique<TransformSystem>();
 
 	auto& meshManager = MeshManager::GetInstance();
 	auto& textureManager = TextureManager::GetInstance();
@@ -21,8 +22,8 @@ Engine::Engine()
 
 
 	entt::entity camera = m_registry.create();
-	entt::entity cube = m_registry.create();
-	entt::entity cube2 = m_registry.create();
+	entt::entity rifle1 = m_registry.create();
+	entt::entity rifle2 = m_registry.create();
 
 	auto& cameraComponent = m_registry.emplace<CameraComponent>(camera);
 	cameraComponent.position = DirectX::XMVectorSet(0.0f, 0.0f, -5.0f, 1.0f);
@@ -30,15 +31,15 @@ Engine::Engine()
 	cameraComponent.up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f);
 
 	cameraComponent.fov = XMConvertToRadians(45.0f);
-	cameraComponent.nearPlane = 0.1f;
+	cameraComponent.nearPlane = 1.0f;
 	cameraComponent.farPlane = 100.0f;
 	cameraComponent.aspectRatio = 800.f / 600.f;
 
-	auto& mesh = m_registry.emplace<MeshComponent>(cube);
+	auto& mesh = m_registry.emplace<MeshComponent>(rifle1);
 	mesh.meshAsset = meshManager.GetMesh(rifleMesh);
 	mesh.topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
-	auto& shader = m_registry.emplace<ShaderComponent>(cube);
+	auto& shader = m_registry.emplace<ShaderComponent>(rifle1);
 	shader.vertexShaderPath = L"src/Shader/VertexShader.hlsl";
 	shader.pixelShaderPath = L"src/Shader/PixelShader.hlsl";
 	shader.layout = std::vector<D3D11_INPUT_ELEMENT_DESC>{
@@ -47,19 +48,21 @@ Engine::Engine()
 		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, offsetof(Vertex, color), D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
-	auto& texture = m_registry.emplace<TextureComponent>(cube);
+	auto& texture = m_registry.emplace<TextureComponent>(rifle1);
 	texture.textureAsset = textureManager.GetTexture(rifleTexture);
 
-	auto& constantBuffer = m_registry.emplace<ConstantBufferComponent>(cube);
-	constantBuffer.offsetZ = 10.0f;
-	constantBuffer.offsetX = -1.0f;
-	constantBuffer.offsetY = -3.0f;
-	
-	auto& mesh2 = m_registry.emplace<MeshComponent>(cube2);
+	auto& rifleTransform1 = m_registry.emplace<TransformComponent>(rifle1);
+	rifleTransform1.transform.position = { -1.0f, 0.0f, 15.0f };
+	rifleTransform1.transform.rotation = { 0.0f, 0.0f, 0.0f };
+	rifleTransform1.transform.scale = { 0.1f, 0.1f, 0.1f };
+
+	auto& constantBuffer = m_registry.emplace<ConstantBufferComponent>(rifle1);
+
+	auto& mesh2 = m_registry.emplace<MeshComponent>(rifle2);
 	mesh2.meshAsset = meshManager.GetMesh(rifleMesh);
 	mesh2.topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
-	auto& shader2 = m_registry.emplace<ShaderComponent>(cube2);
+	auto& shader2 = m_registry.emplace<ShaderComponent>(rifle2);
 	shader2.vertexShaderPath = L"src/Shader/VertexShader.hlsl";
 	shader2.pixelShaderPath = L"src/Shader/PixelShader.hlsl";
 	shader2.layout = std::vector<D3D11_INPUT_ELEMENT_DESC>{
@@ -68,13 +71,15 @@ Engine::Engine()
 		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, offsetof(Vertex, color), D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
-	auto& texture2 = m_registry.emplace<TextureComponent>(cube2);
+	auto& texture2 = m_registry.emplace<TextureComponent>(rifle2);
 	texture2.textureAsset = textureManager.GetTexture(rifleTexture);
 
-	auto& constantBuffer2 = m_registry.emplace<ConstantBufferComponent>(cube2);
-	constantBuffer2.offsetZ = 5.0f;
-	constantBuffer2.offsetX = 1.0f;
-	constantBuffer2.offsetY = 3.0f;
+	auto& rifleTransform2 = m_registry.emplace<TransformComponent>(rifle2);
+	rifleTransform2.transform.position = { 1.0f, 0.0f, 25.0f };
+	rifleTransform2.transform.rotation = { 0.0f, 0.0f, 0.0f };
+	rifleTransform2.transform.scale = { 0.1f, 0.1f, 0.1f };
+
+	auto& constantBuffer2 = m_registry.emplace<ConstantBufferComponent>(rifle2);
 	
 	m_cameraSystem->Init();
 	m_meshSystem->Init();
@@ -83,8 +88,14 @@ Engine::Engine()
 
 void Engine::Frame()
 {
+	Transform testTransform = {
+		.position = { 0.0f, sinf(static_cast<float>(GetTickCount64() / 1000.0f)), 0.0f },
+		.rotation = { 0.0f, static_cast<float>(GetTickCount64() / 1000.0f), 0.0f },
+		.scale = { 0.1f, 0.1f, 0.1f }
+	};
 	m_graphics->BeginFrame(0.2f, 0.4f, 1.0f, 1.0f);
 	m_renderer->Update();
+	m_transformSystem->Update(m_registry, testTransform);
 	m_cbufferSystem->Update();
 	m_cameraSystem->Update(0.016f); // Assuming a fixed delta time for simplicity before implementing a control system for camera
 	UpdateImGui();

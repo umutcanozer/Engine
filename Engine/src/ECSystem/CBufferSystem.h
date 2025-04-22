@@ -1,7 +1,9 @@
 #pragma once
 #include "Core/Graphics.h"
+#include "TransformSystem.h"
 #include "entt.hpp"
 #include <vector>
+
 
 struct MatrixBuffer {
 	DirectX::XMFLOAT4X4 world;
@@ -10,10 +12,6 @@ struct MatrixBuffer {
 struct ConstantBufferComponent {
 	Microsoft::WRL::ComPtr<ID3D11Buffer> matrixBuffer;
 	MatrixBuffer matrixData;
-
-	float offsetZ = 0.0f;
-	float offsetX = 0.0f;
-	float offsetY = 0.0f;
 
 	ConstantBufferComponent() = default;
 	ConstantBufferComponent(const ConstantBufferComponent&) = default;

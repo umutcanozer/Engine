@@ -17,24 +17,15 @@ void CBufferSystem::Init()
 
 void CBufferSystem::Update()
 {
-	/*XMMATRIX viewMat = XMMatrixLookAtLH(
-		XMVectorSet(0.0f, 0.0f, -5.0f, 1.0f),
-		XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f),
-		XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f)
-	);
-	XMMATRIX projMat = XMMatrixPerspectiveFovLH(XMConvertToRadians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);*/
-
-	auto view = m_registry.view<ConstantBufferComponent>();
-	for (auto entity : view) {
-		auto& constantBuffer = view.get<ConstantBufferComponent>(entity);
-
-		XMMATRIX worldMat = XMMatrixScaling(0.1f, 0.1f, 0.1f) *
-			XMMatrixRotationY(static_cast<float>(GetTickCount64() / 1000.0f)) *
-			XMMatrixTranslation(constantBuffer.offsetX, constantBuffer.offsetY, constantBuffer.offsetZ);
+	auto view = m_registry.view<TransformComponent, ConstantBufferComponent>();
+	view.each([&](auto entity, TransformComponent tComponent, ConstantBufferComponent constant) {
+		XMMATRIX worldMat = XMMatrixScaling(tComponent.transform.scale.x, tComponent.transform.scale.y, tComponent.transform.scale.z) *
+			XMMatrixRotationRollPitchYaw(tComponent.transform.rotation.x, tComponent.transform.rotation.y, tComponent.transform.rotation.z) *
+			XMMatrixTranslation(tComponent.transform.position.x, tComponent.transform.position.y, tComponent.transform.position.z);
 
 		auto context = m_gfx.GetContext();
 		D3D11_MAPPED_SUBRESOURCE mapped;
-		HRESULT hr = context->Map(constantBuffer.matrixBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped);
+		HRESULT hr = context->Map(constant.matrixBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped);
 		if (FAILED(hr))
 		{
 			std::cerr << "Map failed with error: " << hr << std::endl;
@@ -43,10 +34,8 @@ void CBufferSystem::Update()
 		MatrixBuffer* cbDataPtr;
 		cbDataPtr = (MatrixBuffer*)mapped.pData;
 		XMStoreFloat4x4(&cbDataPtr->world, XMMatrixTranspose(worldMat));
-		//XMStoreFloat4x4(&cbDataPtr->view, XMMatrixTranspose(viewMat));
-		//XMStoreFloat4x4(&cbDataPtr->proj, XMMatrixTranspose(projMat));
-		m_gfx.GetContext()->Unmap(constantBuffer.matrixBuffer.Get(), 0);
-	}
+		m_gfx.GetContext()->Unmap(constant.matrixBuffer.Get(), 0);
+	});
 }
 
 void CBufferSystem::CreateConstants(ConstantBufferComponent& constantBuffer)

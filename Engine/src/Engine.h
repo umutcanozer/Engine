@@ -3,7 +3,6 @@
 #include "System/System.h"
 #include "Core/Graphics.h"
 #include "ECSystem/Renderer.h"
-#include "ECSystem/CameraSystem.h"
 
 #include "imgui.h"
 #include "imgui_impl_dx11.h"
@@ -30,6 +29,7 @@ private:
 	std::unique_ptr<CBufferSystem> m_cbufferSystem;
 	std::unique_ptr<MeshSystem> m_meshSystem;
 	std::unique_ptr<CameraSystem> m_cameraSystem;
+	std::unique_ptr<TransformSystem> m_transformSystem;
 
 	entt::registry m_registry;
 };

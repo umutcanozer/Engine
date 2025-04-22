@@ -180,6 +180,7 @@
     <ClInclude Include="src\ECSystem\MeshSystem.h" />
     <ClInclude Include="src\ECSystem\Renderer.h" />
     <ClInclude Include="src\ECSystem\TextureManager.h" />
+    <ClInclude Include="src\ECSystem\TransformSystem.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Input\Keyboard.h" />
     <ClInclude Include="src\Input\Mouse.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="src\ECSystem\MeshSystem.cpp" />
     <ClCompile Include="src\ECSystem\Renderer.cpp" />
     <ClCompile Include="src\ECSystem\TextureManager.cpp" />
+    <ClCompile Include="src\ECSystem\TransformSystem.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\Input\Keyboard.cpp" />
     <ClCompile Include="src\Input\Mouse.cpp" />
