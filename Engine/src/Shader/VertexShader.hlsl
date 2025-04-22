@@ -1,6 +1,10 @@
 cbuffer MatrixBuffer : register(b0)
 {
 	float4x4 worldMatrix;
+};
+
+cbuffer CameraBuffer : register(b1)
+{
 	float4x4 viewMatrix;
 	float4x4 projMatrix;
 };

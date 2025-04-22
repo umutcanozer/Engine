@@ -42,5 +42,13 @@ void Renderer::Update()
 
 		context->DrawIndexed((UINT)meshPtr->indices.size(), 0, 0);
 	}
+
+	auto cameraView = m_registry.view<CameraComponent>();
+	for (auto entity : cameraView) {
+		auto& camera = cameraView.get<CameraComponent>(entity);
+		auto context = m_gfx.GetContext();
+		context->VSSetConstantBuffers(1, 1, camera.cameraBuffer.GetAddressOf());
+		context->PSSetConstantBuffers(1, 1, camera.cameraBuffer.GetAddressOf());
+	}
 }
 

@@ -39,13 +39,6 @@ void MeshSystem::CreateShaders(ShaderComponent& shader)
 	}
 	m_gfx.GetDevice()->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), nullptr, &shader.pixelShader);
 
-	// Create the input layout
-	D3D11_INPUT_ELEMENT_DESC layout[] =
-	{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	};
-
 	m_gfx.GetDevice()->CreateInputLayout(shader.layout.data(), (UINT)shader.layout.size(), pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), &shader.inputLayout);
 }
 

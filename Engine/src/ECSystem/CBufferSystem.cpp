@@ -17,12 +17,12 @@ void CBufferSystem::Init()
 
 void CBufferSystem::Update()
 {
-	XMMATRIX viewMat = XMMatrixLookAtLH(
+	/*XMMATRIX viewMat = XMMatrixLookAtLH(
 		XMVectorSet(0.0f, 0.0f, -5.0f, 1.0f),
 		XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f),
 		XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f)
 	);
-	XMMATRIX projMat = XMMatrixPerspectiveFovLH(XMConvertToRadians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+	XMMATRIX projMat = XMMatrixPerspectiveFovLH(XMConvertToRadians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);*/
 
 	auto view = m_registry.view<ConstantBufferComponent>();
 	for (auto entity : view) {
@@ -43,8 +43,8 @@ void CBufferSystem::Update()
 		MatrixBuffer* cbDataPtr;
 		cbDataPtr = (MatrixBuffer*)mapped.pData;
 		XMStoreFloat4x4(&cbDataPtr->world, XMMatrixTranspose(worldMat));
-		XMStoreFloat4x4(&cbDataPtr->view, XMMatrixTranspose(viewMat));
-		XMStoreFloat4x4(&cbDataPtr->proj, XMMatrixTranspose(projMat));
+		//XMStoreFloat4x4(&cbDataPtr->view, XMMatrixTranspose(viewMat));
+		//XMStoreFloat4x4(&cbDataPtr->proj, XMMatrixTranspose(projMat));
 		m_gfx.GetContext()->Unmap(constantBuffer.matrixBuffer.Get(), 0);
 	}
 }

@@ -11,6 +11,7 @@ Engine::Engine()
 	m_renderer = std::make_unique<Renderer>(*m_graphics, m_registry);
 	m_cbufferSystem = std::make_unique<CBufferSystem>(*m_graphics, m_registry);
 	m_meshSystem = std::make_unique<MeshSystem>(*m_graphics, m_registry);
+	m_cameraSystem = std::make_unique<CameraSystem>(*m_graphics, m_registry);
 
 	auto& meshManager = MeshManager::GetInstance();
 	auto& textureManager = TextureManager::GetInstance();
@@ -18,8 +19,20 @@ Engine::Engine()
 	auto rifleMesh = meshManager.LoadModel("assets/rifle/rifle.obj", *m_graphics);
 	auto rifleTexture = textureManager.LoadTexture("assets/rifle/m_rifl.bmp", *m_graphics);
 
+
+	entt::entity camera = m_registry.create();
 	entt::entity cube = m_registry.create();
 	entt::entity cube2 = m_registry.create();
+
+	auto& cameraComponent = m_registry.emplace<CameraComponent>(camera);
+	cameraComponent.position = DirectX::XMVectorSet(0.0f, 0.0f, -5.0f, 1.0f);
+	cameraComponent.target = DirectX::XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
+	cameraComponent.up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f);
+
+	cameraComponent.fov = XMConvertToRadians(45.0f);
+	cameraComponent.nearPlane = 0.1f;
+	cameraComponent.farPlane = 100.0f;
+	cameraComponent.aspectRatio = 800.f / 600.f;
 
 	auto& mesh = m_registry.emplace<MeshComponent>(cube);
 	mesh.meshAsset = meshManager.GetMesh(rifleMesh);
@@ -63,6 +76,7 @@ Engine::Engine()
 	constantBuffer2.offsetX = 1.0f;
 	constantBuffer2.offsetY = 3.0f;
 	
+	m_cameraSystem->Init();
 	m_meshSystem->Init();
 	m_cbufferSystem->Init();
 }
@@ -72,6 +86,7 @@ void Engine::Frame()
 	m_graphics->BeginFrame(0.2f, 0.4f, 1.0f, 1.0f);
 	m_renderer->Update();
 	m_cbufferSystem->Update();
+	m_cameraSystem->Update(0.016f); // Assuming a fixed delta time for simplicity before implementing a control system for camera
 	UpdateImGui();
 	m_graphics->EndFrame();
 }
