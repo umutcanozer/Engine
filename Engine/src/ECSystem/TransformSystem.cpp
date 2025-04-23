@@ -6,7 +6,7 @@
 
 void TransformSystem::Update(entt::registry& registry, const Transform& newTransform)
 {
-	auto view = registry.view<TransformComponent>();
+	auto view = registry.group<TransformComponent, Movable>();
 	for (auto entity : view) {
 		auto& transformComponent = view.get<TransformComponent>(entity);
 

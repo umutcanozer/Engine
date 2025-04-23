@@ -1,6 +1,7 @@
 #pragma once
 #include <chrono>
 #include "System/System.h"
+#include "System/CameraController.h"
 #include "Core/Graphics.h"
 #include "ECSystem/Renderer.h"
 
@@ -30,6 +31,7 @@ private:
 	std::unique_ptr<MeshSystem> m_meshSystem;
 	std::unique_ptr<CameraSystem> m_cameraSystem;
 	std::unique_ptr<TransformSystem> m_transformSystem;
+	std::unique_ptr<CameraController> m_cameraController;
 
 	entt::registry m_registry;
 };

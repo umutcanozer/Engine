@@ -13,6 +13,7 @@ Engine::Engine()
 	m_meshSystem = std::make_unique<MeshSystem>(*m_graphics, m_registry);
 	m_cameraSystem = std::make_unique<CameraSystem>(*m_graphics, m_registry);
 	m_transformSystem = std::make_unique<TransformSystem>();
+	m_cameraController = std::make_unique<CameraController>(*m_system, m_registry);
 
 	auto& meshManager = MeshManager::GetInstance();
 	auto& textureManager = TextureManager::GetInstance();
@@ -26,9 +27,13 @@ Engine::Engine()
 	entt::entity rifle2 = m_registry.create();
 
 	auto& cameraComponent = m_registry.emplace<CameraComponent>(camera);
-	cameraComponent.position = DirectX::XMVectorSet(0.0f, 0.0f, -5.0f, 1.0f);
-	cameraComponent.target = DirectX::XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
-	cameraComponent.up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f);
+	auto& camTransform = m_registry.emplace<TransformComponent>(camera);
+	camTransform.transform.position = { 0.0f, 0.0f, -5.0f };
+	camTransform.transform.rotation = { 0.0f, 0.0f, 0.0f };
+
+	//cameraComponent.position = DirectX::XMVectorSet(0.0f, 0.0f, -5.0f, 1.0f);
+	//cameraComponent.target = DirectX::XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
+	//cameraComponent.up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 
 	cameraComponent.fov = XMConvertToRadians(45.0f);
 	cameraComponent.nearPlane = 1.0f;
@@ -52,6 +57,7 @@ Engine::Engine()
 	texture.textureAsset = textureManager.GetTexture(rifleTexture);
 
 	auto& rifleTransform1 = m_registry.emplace<TransformComponent>(rifle1);
+	m_registry.emplace<Movable>(rifle1);
 	rifleTransform1.transform.position = { -1.0f, 0.0f, 15.0f };
 	rifleTransform1.transform.rotation = { 0.0f, 0.0f, 0.0f };
 	rifleTransform1.transform.scale = { 0.1f, 0.1f, 0.1f };
@@ -75,6 +81,7 @@ Engine::Engine()
 	texture2.textureAsset = textureManager.GetTexture(rifleTexture);
 
 	auto& rifleTransform2 = m_registry.emplace<TransformComponent>(rifle2);
+	m_registry.emplace<Movable>(rifle2);
 	rifleTransform2.transform.position = { 1.0f, 0.0f, 25.0f };
 	rifleTransform2.transform.rotation = { 0.0f, 0.0f, 0.0f };
 	rifleTransform2.transform.scale = { 0.1f, 0.1f, 0.1f };
@@ -97,7 +104,8 @@ void Engine::Frame()
 	m_renderer->Update();
 	m_transformSystem->Update(m_registry, testTransform);
 	m_cbufferSystem->Update();
-	m_cameraSystem->Update(0.016f); // Assuming a fixed delta time for simplicity before implementing a control system for camera
+	m_cameraSystem->Update(); 
+	m_cameraController->Update(0.016f); 
 	UpdateImGui();
 	m_graphics->EndFrame();
 }

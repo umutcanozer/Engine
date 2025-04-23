@@ -1,5 +1,6 @@
 #pragma once 
 #include "Core/Graphics.h"
+#include "TransformSystem.h"
 #include "entt.hpp"
 
 struct CameraComponent {
@@ -34,7 +35,7 @@ public:
 	CameraSystem& operator=(const CameraSystem&) = delete;
 	~CameraSystem() = default;
 	void Init();
-	void Update(float deltaTime);
+	void Update();
 
 private:
 	void CreateCamera(CameraComponent& camera);

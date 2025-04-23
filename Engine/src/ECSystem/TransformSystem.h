@@ -8,6 +8,11 @@ struct Transform {
 	DirectX::XMFLOAT3 scale = { 1.0f, 1.0f, 1.0f };
 };
 
+struct Movable {
+	//This is a marker struct to indicate that the entity can be moved
+	//It s a temporary solution before scripting
+};
+
 struct TransformComponent {
 	Transform transform;
 

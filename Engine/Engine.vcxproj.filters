@@ -141,6 +141,9 @@
     <ClInclude Include="src\ECSystem\TransformSystem.h">
       <Filter>Header Files\ECSystem</Filter>
     </ClInclude>
+    <ClInclude Include="src\System\CameraController.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Engine.rc">
@@ -218,6 +221,9 @@
     </ClCompile>
     <ClCompile Include="src\ECSystem\TransformSystem.cpp">
       <Filter>Source Files\ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\CameraController.cpp">
+      <Filter>Source Files\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

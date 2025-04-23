@@ -12,6 +12,13 @@ Window::Window(int width, int height, const std::string& title)
         width, height, nullptr, nullptr, m_hInstance, this
     );
 
+    RAWINPUTDEVICE rid;
+    rid.usUsagePage = 0x01;
+    rid.usUsage = 0x02;
+    rid.dwFlags = RIDEV_INPUTSINK;
+    rid.hwndTarget = m_hWnd;
+    RegisterRawInputDevices(&rid, 1, sizeof(rid));
+
     ShowWindow(m_hWnd, SW_SHOW);
 }
 

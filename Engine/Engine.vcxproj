@@ -184,6 +184,7 @@
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Input\Keyboard.h" />
     <ClInclude Include="src\Input\Mouse.h" />
+    <ClInclude Include="src\System\CameraController.h" />
     <ClInclude Include="src\System\IMessageHandler.h" />
     <ClInclude Include="src\System\System.h" />
     <ClInclude Include="src\System\Window.h" />
@@ -218,6 +219,7 @@
     <ClCompile Include="src\Input\Keyboard.cpp" />
     <ClCompile Include="src\Input\Mouse.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\System\CameraController.cpp" />
     <ClCompile Include="src\System\System.cpp" />
     <ClCompile Include="src\System\Window.cpp" />
     <ClCompile Include="src\System\WindowClass.cpp" />
