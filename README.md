@@ -2,14 +2,14 @@
 
 This project is a custom game engine built from scratch using **C++** and **DirectX 11**, designed with a modern **Entity-Component-System (ECS)** architecture.
 
-## Features Implemented (So far)
+## Features Implemented (so far)
 - Real-time rendering pipeline (DirectX 11)
 - Entity-Component-System architecture (using `entt`)
 - Constant buffer system and transform support
 - Basic model loading (.obj)
-- Camera system (position, rotation, projection, controller)
+- Camera system (position, rotation, view, projection, controller)
 
-## Planned features
+## Planned Features
 - ImGui-based scene editor
 - Lighting & basic shadows
 - Skybox rendering
@@ -17,7 +17,6 @@ This project is a custom game engine built from scratch using **C++** and **Dire
 - Scripting layer
 
 ## Tech Stack
-- C++20
 - DirectX 11
 - EnTT
 - Assimp 
