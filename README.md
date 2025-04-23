@@ -9,7 +9,7 @@ This project is a custom game engine built from scratch using **C++** and **Dire
 - Basic model loading (.obj)
 - Camera system (position, rotation, projection, controller)
 
-## Coming Soon
+## Planned features
 - ImGui-based scene editor
 - Lighting & basic shadows
 - Skybox rendering
