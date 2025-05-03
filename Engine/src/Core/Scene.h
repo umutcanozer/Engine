@@ -4,6 +4,7 @@
 #include "System/CameraController.h"
 #include "Core/Graphics.h"
 #include "ECSystem/Renderer.h"
+#include "ECSystem/BehaviourSystem.h"
 
 class Scene
 {
@@ -11,7 +12,7 @@ public:
 	Scene(Graphics& gfx, System& system);
 	Scene(const Scene&) = delete;
 	Scene& operator=(const Scene&) = delete;
-	~Scene();
+	~Scene() = default;
 
 	void Init();
 	void Update();
@@ -26,6 +27,7 @@ private:
 	std::unique_ptr<CameraSystem> m_cameraSystem;
 	std::unique_ptr<TransformSystem> m_transformSystem;
 	std::unique_ptr<CameraController> m_cameraController;
+	std::unique_ptr<BehaviourSystem> m_behaviourSystem;
 
 	entt::registry m_registry;
 };

@@ -8,10 +8,7 @@ Scene::Scene(Graphics& gfx, System& system) : m_graphics(gfx), m_system(system)
 	m_cameraSystem = std::make_unique<CameraSystem>(m_graphics, m_registry);
 	m_transformSystem = std::make_unique<TransformSystem>();
 	m_cameraController = std::make_unique<CameraController>(m_system, m_registry);
-}
-
-Scene::~Scene()
-{
+	m_behaviourSystem = std::make_unique<BehaviourSystem>(m_registry);
 }
 
 void Scene::Init()
@@ -31,10 +28,6 @@ void Scene::Init()
 	auto& camTransform = m_registry.emplace<TransformComponent>(camera);
 	camTransform.transform.position = { 0.0f, 0.0f, -5.0f };
 	camTransform.transform.rotation = { 0.0f, 0.0f, 0.0f };
-
-	//cameraComponent.position = DirectX::XMVectorSet(0.0f, 0.0f, -5.0f, 1.0f);
-	//cameraComponent.target = DirectX::XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
-	//cameraComponent.up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 
 	cameraComponent.fov = DirectX::XMConvertToRadians(45.0f);
 	cameraComponent.nearPlane = 1.0f;
@@ -57,8 +50,16 @@ void Scene::Init()
 	auto& texture = m_registry.emplace<TextureComponent>(rifle1);
 	texture.textureAsset = textureManager.GetTexture(rifleTexture);
 
+	auto& behaviour = m_registry.emplace<BehaviourComponent>(rifle1);
+	behaviour.updateFunction = [](entt::entity entity, entt::registry& registry, float deltaTime) {
+		auto& transform = registry.get<TransformComponent>(entity);
+		float movementSpeed = 150.f;
+		float rotationSpeed = 25.f;
+		transform.transform.position.x = sinf(static_cast<float>(GetTickCount64() / 1000.0f)) * deltaTime * movementSpeed;
+		transform.transform.rotation.y = static_cast<float>(GetTickCount64() / 1000.0f) * deltaTime * rotationSpeed;
+		};
+
 	auto& rifleTransform1 = m_registry.emplace<TransformComponent>(rifle1);
-	m_registry.emplace<Movable>(rifle1);
 	rifleTransform1.transform.position = { -1.0f, 0.0f, 15.0f };
 	rifleTransform1.transform.rotation = { 0.0f, 0.0f, 0.0f };
 	rifleTransform1.transform.scale = { 0.1f, 0.1f, 0.1f };
@@ -81,8 +82,18 @@ void Scene::Init()
 	auto& texture2 = m_registry.emplace<TextureComponent>(rifle2);
 	texture2.textureAsset = textureManager.GetTexture(rifleTexture);
 
+	auto& behaviour2 = m_registry.emplace<BehaviourComponent>(rifle2);
+	behaviour2.updateFunction = [](entt::entity entity, entt::registry& registry, float deltaTime) {
+		auto& transform = registry.get<TransformComponent>(entity);
+
+		float movementSpeed = 350.f;
+		float rotationSpeed = 25.f;
+
+		transform.transform.position.y = sinf(static_cast<float>(GetTickCount64() / 1000.0f)) * deltaTime * movementSpeed;
+		transform.transform.rotation.y = -static_cast<float>(GetTickCount64() / 1000.0f) * deltaTime * rotationSpeed;
+		};
+
 	auto& rifleTransform2 = m_registry.emplace<TransformComponent>(rifle2);
-	m_registry.emplace<Movable>(rifle2);
 	rifleTransform2.transform.position = { 1.0f, 0.0f, 25.0f };
 	rifleTransform2.transform.rotation = { 0.0f, 0.0f, 0.0f };
 	rifleTransform2.transform.scale = { 0.1f, 0.1f, 0.1f };
@@ -96,14 +107,9 @@ void Scene::Init()
 
 void Scene::Update()
 {
-	Transform testTransform = {
-		.position = { 0.0f, sinf(static_cast<float>(GetTickCount64() / 1000.0f)), 0.0f },
-		.rotation = { 0.0f, static_cast<float>(GetTickCount64() / 1000.0f), 0.0f },
-		.scale = { 0.1f, 0.1f, 0.1f }
-	};
-
 	m_renderer->Update();
-	m_transformSystem->Update(m_registry, testTransform);
+	m_behaviourSystem->Update(0.016f);
+	m_transformSystem->Update(m_registry);
 	m_cbufferSystem->Update();
 	m_cameraSystem->Update();
 	m_cameraController->Update(0.016f);

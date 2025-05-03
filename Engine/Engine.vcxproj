@@ -175,6 +175,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="src\Core\Graphics.h" />
     <ClInclude Include="src\Core\Scene.h" />
+    <ClInclude Include="src\ECSystem\BehaviourSystem.h" />
     <ClInclude Include="src\ECSystem\CameraSystem.h" />
     <ClInclude Include="src\ECSystem\CBufferSystem.h" />
     <ClInclude Include="src\ECSystem\MeshManager.h" />
@@ -210,6 +211,7 @@
   <ItemGroup>
     <ClCompile Include="src\Core\Graphics.cpp" />
     <ClCompile Include="src\Core\Scene.cpp" />
+    <ClCompile Include="src\ECSystem\BehaviourSystem.cpp" />
     <ClCompile Include="src\ECSystem\CameraSystem.cpp" />
     <ClCompile Include="src\ECSystem\CBufferSystem.cpp" />
     <ClCompile Include="src\ECSystem\MeshManager.cpp" />

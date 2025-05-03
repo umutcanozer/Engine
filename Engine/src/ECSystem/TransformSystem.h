@@ -8,11 +8,6 @@ struct Transform {
 	DirectX::XMFLOAT3 scale = { 1.0f, 1.0f, 1.0f };
 };
 
-struct Movable {
-	//This is a marker struct to indicate that the entity can be moved
-	//It s a temporary solution before scripting
-};
-
 struct TransformComponent {
 	Transform transform;
 
@@ -27,7 +22,7 @@ public:
 	TransformSystem(const TransformSystem&) = delete;
 	TransformSystem& operator=(const TransformSystem&) = delete;
 	~TransformSystem() = default;
-	void Update(entt::registry& registry, const Transform& transform);
+	void Update(entt::registry& registry);
 };
 
 inline bool PositionEquals(const Transform& a, const Transform& b) {
