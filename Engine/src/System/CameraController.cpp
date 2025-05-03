@@ -1,5 +1,5 @@
 #include "CameraController.h"
-#include "DirectXMath.h"
+
 using namespace DirectX;
 CameraController::CameraController(System& system, entt::registry& registry) : m_system(system),
 m_registry(registry)

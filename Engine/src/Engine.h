@@ -1,10 +1,5 @@
 #pragma once
-#include <chrono>
-#include "System/System.h"
-#include "System/CameraController.h"
-#include "Core/Graphics.h"
-#include "ECSystem/Renderer.h"
-
+#include "Core/Scene.h"
 #include "imgui.h"
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
@@ -17,6 +12,7 @@ public:
 	Engine& operator=(const Engine&) = delete;
 	~Engine();
 
+	void Init();
 	void Frame();
 	int Run();
 	
@@ -26,12 +22,6 @@ private:
 private:
 	std::unique_ptr<System> m_system;
 	std::unique_ptr<Graphics> m_graphics;
-	std::unique_ptr<Renderer> m_renderer;
-	std::unique_ptr<CBufferSystem> m_cbufferSystem;
-	std::unique_ptr<MeshSystem> m_meshSystem;
-	std::unique_ptr<CameraSystem> m_cameraSystem;
-	std::unique_ptr<TransformSystem> m_transformSystem;
-	std::unique_ptr<CameraController> m_cameraController;
 
-	entt::registry m_registry;
+	std::unique_ptr<Scene> m_scene;
 };
