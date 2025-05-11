@@ -4,6 +4,7 @@
 #include "MeshSystem.h"
 #include "CBufferSystem.h"
 #include "CameraSystem.h"
+#include "Core/Grid.h"
 
 
 class Renderer {
@@ -13,11 +14,20 @@ public:
 	Renderer& operator=(const Renderer&) = delete;
 	~Renderer() = default;
 
+    void InitDepthStates();
+    void InitBlendState();
     void Update();
 
 private:
     Graphics& m_gfx;
     entt::registry& m_registry;
+
     UINT m_Stride;
     UINT m_Offset;
+
+    Microsoft::WRL::ComPtr<ID3D11DepthStencilState> m_defaultDepthState;
+    Microsoft::WRL::ComPtr<ID3D11DepthStencilState> m_gridDepthState;
+
+    Microsoft::WRL::ComPtr<ID3D11BlendState> m_gridBlendState;
+    const float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
 };

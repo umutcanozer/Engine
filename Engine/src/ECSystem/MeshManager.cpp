@@ -108,6 +108,7 @@ MeshHandle MeshManager::LoadModel(const std::string& path, Graphics& gfx)
 	return MeshHandle{ newID };
 }
 
+
 std::weak_ptr<MeshAsset> MeshManager::GetMesh(const MeshHandle& handle)
 {
 	if (!handle.IsValid() || handle.id >= m_meshes.size()) {

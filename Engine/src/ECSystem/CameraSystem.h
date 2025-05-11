@@ -25,6 +25,8 @@ struct CameraComponent {
 struct CamBuffer {
 	DirectX::XMFLOAT4X4 view;
 	DirectX::XMFLOAT4X4 projection;
+	DirectX::XMFLOAT3 position;
+	float padding;
 };
 
 

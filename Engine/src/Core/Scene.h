@@ -5,6 +5,7 @@
 #include "Core/Graphics.h"
 #include "ECSystem/Renderer.h"
 #include "ECSystem/BehaviourSystem.h"
+#include "Core/Grid.h"
 
 class Scene
 {
@@ -29,5 +30,10 @@ private:
 	std::unique_ptr<CameraController> m_cameraController;
 	std::unique_ptr<BehaviourSystem> m_behaviourSystem;
 
+	std::unique_ptr<Grid> m_grid;
+
 	entt::registry m_registry;
+
+	entt::entity m_camera;
+	entt::entity m_gridEntity;
 };

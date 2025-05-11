@@ -16,7 +16,7 @@ public:
 private:
 	System& m_system;
 	entt::registry& m_registry;
-	const float m_moveSpeed = 3.5f;
+	const float m_moveSpeed = 1.5f;
 	const float m_rotationSpeed = 5.f;
 };
 

@@ -48,6 +48,8 @@ void CameraSystem::Update()
 		CamBuffer data;
 		XMStoreFloat4x4(&data.projection, XMMatrixTranspose(camera.projectionMatrix));
 		XMStoreFloat4x4(&data.view, XMMatrixTranspose(camera.viewMatrix));
+		XMStoreFloat3(&data.position, camera.position);
+		data.padding = 0.0f;
 
 		D3D11_MAPPED_SUBRESOURCE mapped;
 		if (SUCCEEDED(m_gfx.GetContext()->Map(camera.cameraBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped))) {

@@ -9,30 +9,61 @@ Scene::Scene(Graphics& gfx, System& system) : m_graphics(gfx), m_system(system)
 	m_transformSystem = std::make_unique<TransformSystem>();
 	m_cameraController = std::make_unique<CameraController>(m_system, m_registry);
 	m_behaviourSystem = std::make_unique<BehaviourSystem>(m_registry);
+
+	m_grid = std::make_unique<Grid>(m_graphics, m_registry);
+
+	m_camera = m_registry.create();
+	m_gridEntity = m_registry.create();
 }
 
 void Scene::Init()
-{
+	{
 	auto& meshManager = MeshManager::GetInstance();
 	auto& textureManager = TextureManager::GetInstance();
 
 	auto rifleMesh = meshManager.LoadModel("assets/rifle/rifle.obj", m_graphics);
 	auto rifleTexture = textureManager.LoadTexture("assets/rifle/m_rifl.bmp", m_graphics);
 
-
-	entt::entity camera = m_registry.create();
 	entt::entity rifle1 = m_registry.create();
 	entt::entity rifle2 = m_registry.create();
 
-	auto& cameraComponent = m_registry.emplace<CameraComponent>(camera);
-	auto& camTransform = m_registry.emplace<TransformComponent>(camera);
+	auto& cameraComponent = m_registry.emplace<CameraComponent>(m_camera);
+	auto& camTransform = m_registry.emplace<TransformComponent>(m_camera);
 	camTransform.transform.position = { 0.0f, 0.0f, -5.0f };
-	camTransform.transform.rotation = { 0.0f, 0.0f, 0.0f };
+	camTransform.transform.rotation = { 0.f, 0.0f, 0.0f };
 
 	cameraComponent.fov = DirectX::XMConvertToRadians(45.0f);
 	cameraComponent.nearPlane = 1.0f;
-	cameraComponent.farPlane = 100.0f;
+	cameraComponent.farPlane = 700.0f;
 	cameraComponent.aspectRatio = 800.f / 600.f;
+
+	auto& gridComponent = m_registry.emplace<GridComponent>(m_gridEntity);
+	//2x2 grid
+	gridComponent.vertices = {
+	{{-1.0f, 0.0f, -1.0f}}, 
+	{{-1.0f, 0.0f,  1.0f}},
+	{{ 1.0f, 0.0f,  1.0f}},
+	{{ 1.0f, 0.0f, -1.0f}}  
+	};
+
+	gridComponent.indices = {
+	0, 1, 2,
+	0, 2, 3
+	};
+
+	auto& gridShader = m_registry.emplace<ShaderComponent>(m_gridEntity);
+	gridShader.vertexShaderPath = L"src/Shader/GridVS.hlsl";
+	gridShader.pixelShaderPath = L"src/Shader/GridPS.hlsl";
+	gridShader.layout = std::vector<D3D11_INPUT_ELEMENT_DESC>{
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, offsetof(GridVertex, position), D3D11_INPUT_PER_VERTEX_DATA, 0 },
+	};
+
+	auto& gridTransform = m_registry.emplace<TransformComponent>(m_gridEntity);
+	gridTransform.transform.position = { 0.f, 0.0f, 0.0f };
+	gridTransform.transform.rotation = { 0.0f, 0.0f, 0.0f };
+	gridTransform.transform.scale = { 1000.0f, 1.0f, 1000.0f };
+
+	auto& gridConstant = m_registry.emplace<ConstantBufferComponent>(m_gridEntity);
 
 	auto& mesh = m_registry.emplace<MeshComponent>(rifle1);
 	mesh.meshAsset = meshManager.GetMesh(rifleMesh);
@@ -103,14 +134,20 @@ void Scene::Init()
 	m_cameraSystem->Init();
 	m_meshSystem->Init();
 	m_cbufferSystem->Init();
+	m_grid->Init();
 }
 
 void Scene::Update()
 {
 	m_renderer->Update();
 	m_behaviourSystem->Update(0.016f);
-	m_transformSystem->Update(m_registry);
 	m_cbufferSystem->Update();
 	m_cameraSystem->Update();
 	m_cameraController->Update(0.016f);
+
+	auto& gridTransform = m_registry.get<TransformComponent>(m_gridEntity);
+	auto& cameraTransform = m_registry.get<TransformComponent>(m_camera);
+
+	gridTransform.transform.position.x = cameraTransform.transform.position.x;
+	gridTransform.transform.position.z = cameraTransform.transform.position.z;
 }
