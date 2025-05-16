@@ -133,7 +133,6 @@ void Graphics::EndFrame()
 	{
 		if (hr == DXGI_ERROR_DEVICE_REMOVED || hr == DXGI_ERROR_DEVICE_RESET)
 		{
-			throw m_pDevice->GetDeviceRemovedReason();
 		}
 		else
 		{

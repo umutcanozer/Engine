@@ -20,7 +20,9 @@ float4 main(GridVSOutput input) : SV_TARGET
     float thickness = 0.04f;
     float alpha = 1.0 - smoothstep(0.0, thickness, gridLine);
 
-    float distance = length(input.worldPos - cameraPosition);
+    float2 camXZ = cameraPosition.xz;
+    float2 worldXZ = input.worldPos.xz;
+    float distance = length(worldXZ - camXZ);
     float fade = saturate(1.0 - distance / 100.0); 
 
     float finalAlpha = alpha * fade;
@@ -32,6 +34,5 @@ float4 main(GridVSOutput input) : SV_TARGET
     float3 axisColor = lerp(baseColor, float3(1.0f, 0.0f, 0.0f), isXAxis);
     axisColor = lerp(axisColor, float3(0.0f, 0.0f, 1.0f), isZAxis);     
 
-    float3 gridColor = float3(0.8f, 0.8f, 0.8f); 
     return float4(axisColor, finalAlpha);
 }

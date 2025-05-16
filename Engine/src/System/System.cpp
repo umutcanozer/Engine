@@ -2,7 +2,7 @@
 
 System::System()
 {
-	m_window = std::make_unique<Window>(800, 600, "Engine");
+	m_window = std::make_unique<Window>(1200, 700, "Engine");
 	m_window->SetMessageHandler(this);
 	m_mouse.EnableRaw();
 }

@@ -17,7 +17,7 @@ void Engine::Init()
 
 void Engine::Frame()
 {
-	m_graphics->BeginFrame(0.2f, 0.4f, 1.0f, 1.0f);
+	m_graphics->BeginFrame(0.f, 0.f, 0.f, 1.0f);
 	m_scene->Update();
 	UpdateImGui();
 	m_graphics->EndFrame();

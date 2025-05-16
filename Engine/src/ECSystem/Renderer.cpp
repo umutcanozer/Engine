@@ -6,6 +6,7 @@ Renderer::Renderer(Graphics& gfx, entt::registry& registry) : m_gfx(gfx), m_regi
 
 	InitDepthStates();
 	InitBlendState();
+	InitRasterizers();
 }
 
 void Renderer::InitDepthStates()
@@ -21,7 +22,8 @@ void Renderer::InitDepthStates()
 	}
 
 	dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
-	hr = m_gfx.GetDevice()->CreateDepthStencilState(&dsDesc, &m_gridDepthState);
+	dsDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+	hr = m_gfx.GetDevice()->CreateDepthStencilState(&dsDesc, &m_maskZeroState);
 	if (FAILED(hr)) {
 		std::cerr << "[Renderer] Failed to create grid depth stencil state!\n";
 	}
@@ -45,17 +47,68 @@ void Renderer::InitBlendState()
 	}	
 }
 
+void Renderer::InitRasterizers()
+{
+	D3D11_RASTERIZER_DESC rsDesc = {};
+	rsDesc.FillMode = D3D11_FILL_SOLID;
+	rsDesc.CullMode = D3D11_CULL_FRONT;
+	rsDesc.FrontCounterClockwise = FALSE;
+	rsDesc.DepthClipEnable = FALSE;
+
+	HRESULT hr = m_gfx.GetDevice()->CreateRasterizerState(&rsDesc, &m_skyboxRasterState);
+	if (FAILED(hr)) {
+		std::cerr << "Failed to create skybox rasterizer state!\n";
+	}
+
+	rsDesc.CullMode = D3D11_CULL_NONE;
+	rsDesc.DepthClipEnable = TRUE;
+
+	hr = m_gfx.GetDevice()->CreateRasterizerState(&rsDesc, &m_gridRasterState);
+	if (FAILED(hr)) {
+		std::cerr << "Failed to create grid rasterizer state!\n";
+	}
+}
+
 void Renderer::Update()
 {
 	auto context = m_gfx.GetContext();
+	
+	auto skyboxView = m_registry.view<SkyboxComponent, ShaderComponent, ConstantBufferComponent>();
+	for (auto [entity, skybox, shader, cbuffer] : skyboxView.each()) {
+		context->RSSetState(m_skyboxRasterState.Get());
+		context->OMSetDepthStencilState(m_maskZeroState.Get(), 1u); 
+		context->OMSetBlendState(nullptr, nullptr, 0xFFFFFFFF);
+
+		m_Stride = sizeof(SkyboxVertex);
+		context->IASetInputLayout(shader.inputLayout.Get());
+
+		context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		context->IASetVertexBuffers(0, 1, skybox.vertexBuffer.GetAddressOf(), &m_Stride, &m_Offset);
+		context->IASetIndexBuffer(skybox.indexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0);
+
+		context->VSSetShader(shader.vertexShader.Get(), nullptr, 0);
+		context->PSSetShader(shader.pixelShader.Get(), nullptr, 0);
+
+		context->VSSetConstantBuffers(0, 1, cbuffer.matrixBuffer.GetAddressOf());
+		context->PSSetConstantBuffers(0, 1, cbuffer.matrixBuffer.GetAddressOf());
+
+		context->PSSetShaderResources(0, 1, skybox.cubeMapSRV.GetAddressOf());
+		context->PSSetSamplers(0, 1, skybox.samplerState.GetAddressOf());
+
+		context->DrawIndexed(skybox.indexCount, 0, 0);
+		context->RSSetState(nullptr);
+	}
+
 	auto view = m_registry.view<ShaderComponent, ConstantBufferComponent>();
 	for (auto [entity, shader, cbuffer] : view.each()) {
+		if (m_registry.any_of<SkyboxComponent>(entity)) continue;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> vb = nullptr;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> ib = nullptr;
 		UINT indexCount = 0;
 		D3D11_PRIMITIVE_TOPOLOGY topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
 		if (m_registry.any_of<MeshComponent>(entity)) {
+			context->RSSetState(nullptr);
 			context->OMSetDepthStencilState(m_defaultDepthState.Get(), 1u);
 			context->OMSetBlendState(nullptr, nullptr, 0xFFFFFFFF);
 
@@ -72,13 +125,14 @@ void Renderer::Update()
 			if (textureView) {
 				auto texturePtr = textureView->textureAsset.lock();
 				if (texturePtr) {
-					context->PSSetShaderResources(0, 1, texturePtr->srv.GetAddressOf());     // t0
-					context->PSSetSamplers(0, 1, texturePtr->sampler.GetAddressOf());       // s0
+					context->PSSetShaderResources(0, 1, texturePtr->srv.GetAddressOf());    
+					context->PSSetSamplers(0, 1, texturePtr->sampler.GetAddressOf());       
 				}
 			}
 		}
 		else if (m_registry.any_of<GridComponent>(entity)) {
-			context->OMSetDepthStencilState(m_gridDepthState.Get(), 1u);
+			context->RSSetState(m_gridRasterState.Get());
+			context->OMSetDepthStencilState(m_maskZeroState.Get(), 1u);
 			context->OMSetBlendState(m_gridBlendState.Get(), blendFactor, 0xFFFFFFFF);
 
 			m_Stride = sizeof(GridVertex);
@@ -102,6 +156,7 @@ void Renderer::Update()
 		context->PSSetConstantBuffers(0, 1, cbuffer.matrixBuffer.GetAddressOf());
 
 		context->DrawIndexed(indexCount, 0, 0);
+
 	}
 
 	auto cameraView = m_registry.view<CameraComponent>();

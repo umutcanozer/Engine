@@ -11,9 +11,11 @@ Scene::Scene(Graphics& gfx, System& system) : m_graphics(gfx), m_system(system)
 	m_behaviourSystem = std::make_unique<BehaviourSystem>(m_registry);
 
 	m_grid = std::make_unique<Grid>(m_graphics, m_registry);
+	m_skybox = std::make_unique<Skybox>(m_graphics, m_registry);
 
 	m_camera = m_registry.create();
 	m_gridEntity = m_registry.create();
+	m_skyboxEntity = m_registry.create();
 }
 
 void Scene::Init()
@@ -63,7 +65,7 @@ void Scene::Init()
 	gridTransform.transform.rotation = { 0.0f, 0.0f, 0.0f };
 	gridTransform.transform.scale = { 1000.0f, 1.0f, 1000.0f };
 
-	auto& gridConstant = m_registry.emplace<ConstantBufferComponent>(m_gridEntity);
+	m_registry.emplace<ConstantBufferComponent>(m_gridEntity);
 
 	auto& mesh = m_registry.emplace<MeshComponent>(rifle1);
 	mesh.meshAsset = meshManager.GetMesh(rifleMesh);
@@ -95,7 +97,7 @@ void Scene::Init()
 	rifleTransform1.transform.rotation = { 0.0f, 0.0f, 0.0f };
 	rifleTransform1.transform.scale = { 0.1f, 0.1f, 0.1f };
 
-	auto& constantBuffer = m_registry.emplace<ConstantBufferComponent>(rifle1);
+	m_registry.emplace<ConstantBufferComponent>(rifle1);
 
 	auto& mesh2 = m_registry.emplace<MeshComponent>(rifle2);
 	mesh2.meshAsset = meshManager.GetMesh(rifleMesh);
@@ -129,12 +131,38 @@ void Scene::Init()
 	rifleTransform2.transform.rotation = { 0.0f, 0.0f, 0.0f };
 	rifleTransform2.transform.scale = { 0.1f, 0.1f, 0.1f };
 
-	auto& constantBuffer2 = m_registry.emplace<ConstantBufferComponent>(rifle2);
+	m_registry.emplace<ConstantBufferComponent>(rifle2);
+
+
+	std::vector<std::wstring> skyboxFaces = {
+		L"assets/skybox/mountain/right.jpg",
+		L"assets/skybox/mountain/left.jpg",
+		L"assets/skybox/mountain/top.jpg",
+		L"assets/skybox/mountain/bottom.jpg",
+		L"assets/skybox/mountain/front.jpg",
+		L"assets/skybox/mountain/back.jpg"
+	};
+
+	m_registry.emplace<SkyboxComponent>(m_skyboxEntity);
+
+	auto& skyboxTransform = m_registry.emplace<TransformComponent>(m_skyboxEntity);
+	skyboxTransform.transform.position = { 0.0f, 0.0f, 0.0f };
+	skyboxTransform.transform.rotation = { 0.0f, 0.0f, 0.0f };
+
+	m_registry.emplace<ConstantBufferComponent>(m_skyboxEntity);
+	
+	auto& skyboxShader = m_registry.emplace<ShaderComponent>(m_skyboxEntity);
+	skyboxShader.vertexShaderPath = L"src/Shader/Skybox_VS.hlsl";
+	skyboxShader.pixelShaderPath = L"src/Shader/Skybox_PS.hlsl";
+	skyboxShader.layout = std::vector<D3D11_INPUT_ELEMENT_DESC>{
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, offsetof(SkyboxVertex, position), D3D11_INPUT_PER_VERTEX_DATA, 0 },
+	};
 
 	m_cameraSystem->Init();
 	m_meshSystem->Init();
 	m_cbufferSystem->Init();
 	m_grid->Init();
+	m_skybox->Init(skyboxFaces);
 }
 
 void Scene::Update()

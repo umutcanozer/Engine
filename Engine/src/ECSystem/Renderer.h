@@ -5,6 +5,7 @@
 #include "CBufferSystem.h"
 #include "CameraSystem.h"
 #include "Core/Grid.h"
+#include "Core/SkyBox.h"
 
 
 class Renderer {
@@ -16,6 +17,7 @@ public:
 
     void InitDepthStates();
     void InitBlendState();
+	void InitRasterizers();
     void Update();
 
 private:
@@ -26,8 +28,11 @@ private:
     UINT m_Offset;
 
     Microsoft::WRL::ComPtr<ID3D11DepthStencilState> m_defaultDepthState;
-    Microsoft::WRL::ComPtr<ID3D11DepthStencilState> m_gridDepthState;
+    Microsoft::WRL::ComPtr<ID3D11DepthStencilState> m_maskZeroState;
 
     Microsoft::WRL::ComPtr<ID3D11BlendState> m_gridBlendState;
     const float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
+
+	Microsoft::WRL::ComPtr<ID3D11RasterizerState> m_skyboxRasterState;
+	Microsoft::WRL::ComPtr<ID3D11RasterizerState> m_gridRasterState;
 };
