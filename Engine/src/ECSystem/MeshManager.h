@@ -15,6 +15,7 @@ struct Vertex {
 	DirectX::XMFLOAT3 position;
 	DirectX::XMFLOAT2 texcoord;
 	DirectX::XMFLOAT4 color;
+	DirectX::XMFLOAT3 normal;
 };
 
 struct MeshHandle

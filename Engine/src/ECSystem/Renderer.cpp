@@ -72,6 +72,18 @@ void Renderer::InitRasterizers()
 void Renderer::Update()
 {
 	auto context = m_gfx.GetContext();
+
+	auto lightView = m_registry.view<LightComponent>();
+	for (auto entity : lightView) {
+		auto& light = lightView.get<LightComponent>(entity);
+		D3D11_MAPPED_SUBRESOURCE mapped{};
+		if (SUCCEEDED(context->Map(light.lightBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped))) {
+			memcpy(mapped.pData, &light.lightData, sizeof(LightBuffer));
+			context->Unmap(light.lightBuffer.Get(), 0);
+		}
+		context->PSSetConstantBuffers(2, 1, light.lightBuffer.GetAddressOf());
+	}
+
 	
 	auto skyboxView = m_registry.view<SkyboxComponent, ShaderComponent, ConstantBufferComponent>();
 	for (auto [entity, skybox, shader, cbuffer] : skyboxView.each()) {

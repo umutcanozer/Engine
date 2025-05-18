@@ -5,6 +5,7 @@
 #include "Core/Graphics.h"
 #include "ECSystem/Renderer.h"
 #include "ECSystem/BehaviourSystem.h"
+#include "ECSystem/LightningSystem.h"
 #include "Core/Grid.h"
 #include "Core/SkyBox.h"
 
@@ -30,8 +31,9 @@ private:
 	std::unique_ptr<TransformSystem> m_transformSystem;
 	std::unique_ptr<CameraController> m_cameraController;
 	std::unique_ptr<BehaviourSystem> m_behaviourSystem;
-	std::unique_ptr<Skybox> m_skybox;
+	std::unique_ptr<LightningSystem> m_lightningSystem;
 
+	std::unique_ptr<Skybox> m_skybox;
 	std::unique_ptr<Grid> m_grid;
 
 	entt::registry m_registry;

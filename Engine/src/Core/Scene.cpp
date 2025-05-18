@@ -9,6 +9,7 @@ Scene::Scene(Graphics& gfx, System& system) : m_graphics(gfx), m_system(system)
 	m_transformSystem = std::make_unique<TransformSystem>();
 	m_cameraController = std::make_unique<CameraController>(m_system, m_registry);
 	m_behaviourSystem = std::make_unique<BehaviourSystem>(m_registry);
+	m_lightningSystem = std::make_unique<LightningSystem>(m_graphics, m_registry);
 
 	m_grid = std::make_unique<Grid>(m_graphics, m_registry);
 	m_skybox = std::make_unique<Skybox>(m_graphics, m_registry);
@@ -67,6 +68,16 @@ void Scene::Init()
 
 	m_registry.emplace<ConstantBufferComponent>(m_gridEntity);
 
+	entt::entity lightEntity = m_registry.create();
+	auto& light = m_registry.emplace<LightComponent>(lightEntity);
+	light.lightData.position = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+	light.lightData.range = 100.0f;
+	light.lightData.attenuation = DirectX::XMFLOAT3(1.0f, 0.1f, 0.01f);
+	light.lightData.intensity = 5.0f;
+	light.lightData.ambient = DirectX::XMFLOAT4(0.15f, 0.15f, 0.15f, 1.0f);
+	light.lightData.diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+
+
 	auto& mesh = m_registry.emplace<MeshComponent>(rifle1);
 	mesh.meshAsset = meshManager.GetMesh(rifleMesh);
 	mesh.topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
@@ -77,7 +88,8 @@ void Scene::Init()
 	shader.layout = std::vector<D3D11_INPUT_ELEMENT_DESC>{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, offsetof(Vertex, position), D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, offsetof(Vertex, texcoord), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, offsetof(Vertex, color), D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, offsetof(Vertex, color), D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, offsetof(Vertex, normal), D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
 	auto& texture = m_registry.emplace<TextureComponent>(rifle1);
@@ -93,7 +105,7 @@ void Scene::Init()
 		};
 
 	auto& rifleTransform1 = m_registry.emplace<TransformComponent>(rifle1);
-	rifleTransform1.transform.position = { -1.0f, 0.0f, 15.0f };
+	rifleTransform1.transform.position = { -1.0f, 0.0f, 60.0f };
 	rifleTransform1.transform.rotation = { 0.0f, 0.0f, 0.0f };
 	rifleTransform1.transform.scale = { 0.1f, 0.1f, 0.1f };
 
@@ -109,7 +121,8 @@ void Scene::Init()
 	shader2.layout = std::vector<D3D11_INPUT_ELEMENT_DESC>{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, offsetof(Vertex, position), D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, offsetof(Vertex, texcoord), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, offsetof(Vertex, color), D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, offsetof(Vertex, color), D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, offsetof(Vertex, normal), D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
 	auto& texture2 = m_registry.emplace<TextureComponent>(rifle2);
@@ -159,6 +172,7 @@ void Scene::Init()
 	};
 
 	m_cameraSystem->Init();
+	m_lightningSystem->Init();
 	m_meshSystem->Init();
 	m_cbufferSystem->Init();
 	m_grid->Init();
@@ -168,6 +182,7 @@ void Scene::Init()
 void Scene::Update()
 {
 	m_renderer->Update();
+	//m_lightningSystem->Update();
 	m_behaviourSystem->Update(0.016f);
 	m_cbufferSystem->Update();
 	m_cameraSystem->Update();

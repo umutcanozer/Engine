@@ -43,6 +43,14 @@ MeshHandle MeshManager::LoadModel(const std::string& path, Graphics& gfx)
 		vertex.position.x = mesh->mVertices[i].x;
 		vertex.position.y = mesh->mVertices[i].y;
 		vertex.position.z = mesh->mVertices[i].z;
+		if (mesh->HasNormals()) {
+			vertex.normal.x = mesh->mNormals[i].x;
+			vertex.normal.y = mesh->mNormals[i].y;
+			vertex.normal.z = mesh->mNormals[i].z;
+		}
+		else {
+			vertex.normal = { 0.f, 0.f, 0.f };
+		}
 		// UV 
 		if (mesh->HasTextureCoords(0)) {
 			vertex.texcoord.x = mesh->mTextureCoords[0][i].x;
@@ -61,6 +69,7 @@ MeshHandle MeshManager::LoadModel(const std::string& path, Graphics& gfx)
 		else {
 			vertex.color = { 1.f, 1.f, 1.f, 1.f };
 		}
+
 
 		meshAsset->vertices.push_back(vertex);
 	}

@@ -1,0 +1,319 @@
+# Blender MTL File: 'M4.blend'
+# Material Count: 29
+
+newmtl BMW_M4CoupeRewardRecycled_2021BadgeA_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_BadgeA_Normal.png
+map_Kd C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_BadgeA_DiffuseAOSO.png
+map_d C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_BadgeA_DiffuseAOSO.png
+
+newmtl BMW_M4CoupeRewardRecycled_2021Carbon1_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.341000 0.341000 0.341000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl BMW_M4CoupeRewardRecycled_2021Carbon2_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.341000 0.341000 0.341000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl BMW_M4CoupeRewardRecycled_2021EngineA_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_EngineA_Normal.png
+map_Kd C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_EngineA_DiffuseAOSO.png
+map_d C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_EngineA_DiffuseAOSO.png
+
+newmtl BMW_M4CoupeRewardRecycled_2021Grille2A_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_Grille2A_Normal.png
+map_Kd C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_Grille2A_DiffuseAOSO.png
+map_d C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_Grille2A_DiffuseAOSO.png
+
+newmtl BMW_M4CoupeRewardRecycled_2021Grille3A_Material
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Bump C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_Grille3A_Normal.png
+map_Kd C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_Grille3A_DiffuseAOSO.png
+map_d C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_Grille3A_DiffuseAOSO.png
+
+newmtl BMW_M4CoupeRewardRecycled_2021Grille4A_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_Grille4A_Normal.png
+map_Kd C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_Grille4A_DiffuseAOSO.png
+map_d C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_Grille4A_DiffuseAOSO.png
+
+newmtl BMW_M4CoupeRewardRecycled_2021Grille5A_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_Grille5A_Normal.png
+map_Kd C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_Grille5A_DiffuseAOSO.png
+map_d C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_Grille5A_DiffuseAOSO.png
+
+newmtl BMW_M4CoupeRewardRecycled_2021Grille6A_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_Grille6A_Normal.png
+map_Kd C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_Grille6A_DiffuseAOSO.png
+map_d C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_Grille6A_DiffuseAOSO.png
+
+newmtl BMW_M4CoupeRewardRecycled_2021InteriorA_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_InteriorA_Normal.png
+map_Kd C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_InteriorA_DiffuseAOSO.png
+map_d C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_InteriorA_DiffuseAOSO.png
+
+newmtl BMW_M4CoupeRewardRecycled_2021LicensePlateDefaultA_Material
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl None
+Ns 500
+Ka 0.8 0.8 0.8
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+
+newmtl badge
+Ns 558.009013
+Ka 0.652000 0.652000 0.652000
+Kd 0.018500 0.018500 0.018500
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl ban.001
+Ns 183.183977
+Ka 0.594000 0.594000 0.594000
+Kd 0.022174 0.022174 0.022174
+Ks 0.413000 0.413000 0.413000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl base
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl baut.001
+Ns 557.078346
+Ka 0.739130 0.739130 0.739130
+Kd 0.375748 0.375748 0.375748
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl body
+Ns 704.098018
+Ka 0.729730 0.729730 0.729730
+Kd 0.123710 0.123710 0.123710
+Ks 0.351351 0.351351 0.351351
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl coloured
+Ns 476.730644
+Ka 0.500000 0.500000 0.500000
+Kd 0.000000 1.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\subuwu\\Desktop\\Mods\\Already Modded\\Global_Texture_Coloured_Diffuse.png
+
+newmtl coloured_glass
+Ns 1000.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\subuwu\\Desktop\\Mods\\Already Modded\\Global_Texture_Coloured_Diffuse.png
+
+newmtl disc.001
+Ns 454.840446
+Ka 0.453488 0.453488 0.453488
+Kd 0.800000 0.800000 0.800000
+Ks 0.220930 0.220930 0.220930
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\subuwu\\Desktop\\Mods\\Already Modded\\GR Yaris Pandem\\tex\\gyp_ld-rotor.png
+
+newmtl glass
+Ns 1000.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.500000
+illum 9
+
+newmtl lights
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_LightA_Diffuse.png
+map_d C:\\Users\\subuwu\\Desktop\\Mods\\CSR2 Model\\BMW M4 Pack\\Body_lodA (1)\\BMW_M4Coupe_2021_LightA_Diffuse.png
+
+newmtl pitchblack
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl plastic
+Ns 456.537638
+Ka 0.783784 0.783784 0.783784
+Kd 0.015994 0.015994 0.015994
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl redlight
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 5.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl rim
+Ns 558.009013
+Ka 0.652000 0.652000 0.652000
+Kd 0.018500 0.018500 0.018500
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl sidewall
+Ns 183.183977
+Ka 0.594000 0.594000 0.594000
+Kd 0.022174 0.022174 0.022174
+Ks 0.413000 0.413000 0.413000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl spoke.001
+Ns 558.009013
+Ka 0.652000 0.652000 0.652000
+Kd 0.018500 0.018500 0.018500
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl whitelights
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 5.000000 5.000000 5.000000
+Ni 1.450000
+d 1.000000
+illum 2

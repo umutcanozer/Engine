@@ -4,6 +4,7 @@
 #include "MeshSystem.h"
 #include "CBufferSystem.h"
 #include "CameraSystem.h"
+#include "LightningSystem.h"
 #include "Core/Grid.h"
 #include "Core/SkyBox.h"
 
